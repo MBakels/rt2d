@@ -25,7 +25,9 @@ public:
 	virtual void update(float deltaTime);
 
 private:
-	float rotationSpeed = 3.14f;
+	float rotationSpeed;
+	Vector2 velocity;
+	Polar polar;
 };
 
 #endif /* SPACESHIP_H */

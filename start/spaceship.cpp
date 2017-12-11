@@ -8,7 +8,9 @@
 
 SpaceShip::SpaceShip() : Entity(){
 	this->addSprite("assets/ship.tga");
-	//this->sprite()->color = RED;
+	rotationSpeed = 3.14f;
+	velocity = Vector2(0, 0);
+	polar = Polar((rand() % 360) * DEG_TO_RAD, 200.0f);
 }
 
 SpaceShip::~SpaceShip(){
@@ -16,10 +18,6 @@ SpaceShip::~SpaceShip(){
 }
 
 void SpaceShip::update(float deltaTime){
-
-	static Vector2 velocity = Vector2(0, 0);
-	static Polar polar = Polar((rand() % 360) * DEG_TO_RAD, 400.0f);
-
 	// ###############################################################
 	// Key input for spaceship
 	// ###############################################################
