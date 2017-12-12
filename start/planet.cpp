@@ -10,7 +10,7 @@ Planet::Planet(std::string name, float mass) : Entity() {
 	planetName = name;
 	this->mass = mass;
 	addSprite("assets/planet.tga");
-	sprite()->size = Point(mass / 2, mass / 2);
+	sprite()->size = Point(mass / 100, mass / 100);
 }
 
 Planet::~Planet() {
@@ -21,8 +21,15 @@ void Planet::update(float deltaTime) {
 	
 }
 
-float Planet::GravitationalForce(SpaceShip* entity) {
-	float dist = sqrt((entity->position.x - position.x)*(entity->position.x - position.x) + (entity->position.y - position.y)*(entity->position.y - position.y));
-	float GravitationalPull = mass * entity->GetMass() / dist;
-	return 0.0f;
+Vector2 Planet::GravitationalForce(SpaceShip* entity) {
+	float dx = position.x - entity->position.x;
+	float dy = position.y - entity->position.y;
+	float distSQ = dx * dx + dy * dy;
+	float dist = sqrt(distSQ);
+	float force = mass * entity->GetMass() / distSQ;
+	float ax = (force * dx) / dist;
+	float ay = (force * dy) / dist;
+	Vector2 gravitationalForce = Vector2(ax / entity->GetMass(), ay / entity->GetMass());
+
+	return gravitationalForce;
 }

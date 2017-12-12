@@ -10,7 +10,8 @@ SpaceShip::SpaceShip() : Entity(){
 	addSprite("assets/ship.tga");
 	rotationSpeed = 3.14f;
 	velocity = Vector2(0, 0);
-	polar = Polar((rand() % 360) * DEG_TO_RAD, 200.0f);
+	//polar = Polar((rand() % 360) * DEG_TO_RAD, 200.0f);
+	polar = Polar(90 * DEG_TO_RAD, 200.0f);
 	mass = 50.0f;
 }
 
@@ -38,4 +39,8 @@ void SpaceShip::update(float deltaTime){
 
 float SpaceShip::GetMass() {
 	return mass;
+}
+
+void SpaceShip::AddForce(Vector2 force) {
+	velocity += force;
 }

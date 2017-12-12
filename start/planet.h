@@ -25,7 +25,7 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
-	float GravitationalForce(SpaceShip* entity);
+	Vector2 GravitationalForce(SpaceShip* entity);
 
 private:
 	std::string planetName;

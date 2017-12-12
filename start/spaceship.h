@@ -26,6 +26,8 @@ public:
 
 	float GetMass();
 
+	void AddForce(Vector2 force);
+
 private:
 	float rotationSpeed;
 	Vector2 velocity;

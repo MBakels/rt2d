@@ -14,8 +14,8 @@ GameScene::GameScene() : Scene(){
 	spaceship->position = Point2(SWIDTH/2, SHEIGHT/2);
 	addChild(spaceship);
 
-	earth = new Planet("Earth", 300.0f);
-	earth->position = Point2(300, 200);
+	earth = new Planet("Earth", 3000.0f);
+	earth->position = Point2(500, 400);
 	addChild(earth);
 }
 
@@ -33,4 +33,8 @@ void GameScene::update(float deltaTime){
 	if (input()->getKeyUp(KeyCode::Escape)) {
 		this->stop();
 	}
+
+	spaceship->AddForce(earth->GravitationalForce(spaceship));
+
+	std::cout << ((Vector2)earth->GravitationalForce(spaceship)).getLength() << std::endl;
 }
