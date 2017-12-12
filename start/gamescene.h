@@ -1,9 +1,9 @@
 /**
- * Copyright 2015 Your Name <you@yourhost.com>
+ * Copyright 2015 Marco Bakels <marcobakels@live.nl>
  *
- * @file myscene.h
+ * @file gamescene.h
  *
- * @brief description of MyScene behavior.
+ * @brief description of the GameScene behavior.
  */
 
 #ifndef GAMESCENE_H
@@ -12,6 +12,7 @@
 #include <rt2d/scene.h>
 
 #include "spaceship.h"
+#include "planet.h"
 
 /// @brief The MyScene class is the Scene implementation.
 class GameScene : public Scene{
@@ -29,6 +30,7 @@ public:
 private:
 	/// @brief the spaceship controlled by the player.
 	SpaceShip* spaceship;
+	Planet* earth;
 };
 
 #endif /* GAMESCENE_H */

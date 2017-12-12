@@ -1,9 +1,9 @@
 /**
- * Copyright 2015 Your Name <you@yourhost.com>
+ * Copyright 2015 Marco Bakels <marcobakels@live.nl>
  *
- * @file myentity.h
+ * @file spaceship.h
  *
- * @brief description of MyEntity behavior.
+ * @brief description of the SpaceShip behavior.
  */
 
 #ifndef SPACESHIP_H
@@ -24,10 +24,13 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
+	float GetMass();
+
 private:
 	float rotationSpeed;
 	Vector2 velocity;
 	Polar polar;
+	float mass;
 };
 
 #endif /* SPACESHIP_H */

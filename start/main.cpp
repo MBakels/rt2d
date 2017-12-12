@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Your Name <you@yourhost.com>
+ * Copyright 2015 Marco Bakels <marcobakels@live.nl>
  *
  * @brief Description of My Awesome Game.
  *

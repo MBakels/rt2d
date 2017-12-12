@@ -1,7 +1,7 @@
 /**
- * This class describes MyScene behavior.
+ * This class describes the GameScene behavior.
  *
- * Copyright 2015 Your Name <you@yourhost.com>
+ * Copyright 2015 Marco Bakels <marcobakels@live.nl>
  */
 
 #include <fstream>
@@ -10,23 +10,19 @@
 #include "gamescene.h"
 
 GameScene::GameScene() : Scene(){
-
-	// create a single instance of MyEntity in the middle of the screen.
-	// the Sprite is added in Constructor of MyEntity.
 	spaceship = new SpaceShip();
 	spaceship->position = Point2(SWIDTH/2, SHEIGHT/2);
+	addChild(spaceship);
 
-	// create the scene 'tree'
-	// add myentity to this Scene as a child.
-	this->addChild(spaceship);
+	earth = new Planet("Earth", 300.0f);
+	earth->position = Point2(300, 200);
+	addChild(earth);
 }
 
 
 GameScene::~GameScene(){
-	// deconstruct and delete the Tree
 	this->removeChild(spaceship);
 
-	// delete myentity from the heap (there was a 'new' in the constructor)
 	delete spaceship;
 }
 
