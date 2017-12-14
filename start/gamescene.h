@@ -12,7 +12,7 @@
 #include <rt2d/scene.h>
 
 #include "spaceship.h"
-#include "planet.h"
+#include "body.h"
 
 /// @brief The MyScene class is the Scene implementation.
 class GameScene : public Scene{
@@ -30,7 +30,10 @@ public:
 private:
 	/// @brief the spaceship controlled by the player.
 	SpaceShip* spaceship;
-	Planet* earth;
+	std::vector<Body*> solarSystem;
+	Body* sun;
+	Body* earth;
+	Body* mars;
 };
 
 #endif /* GAMESCENE_H */

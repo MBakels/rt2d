@@ -1,36 +1,38 @@
 /**
 * Copyright 2015 Marco Bakels <marcobakels@live.nl>
 *
-* @file planet.h
+* @file spaceentity.h
 *
-* @brief description of the Planet behavior.
+* @brief description of the SpaceEntity behavior.
 */
 
-#ifndef PLANET_H
-#define PLANET_H
+#ifndef SPACEENTITY_H
+#define SPACEENTITY_H
 
 #include <rt2d/entity.h>
-#include "spaceship.h"
 
 /// @brief The SpaceShip class handels the spaceship movement and keeps a list of passengers.
-class Planet : public Entity {
+class SpaceEntity : public Entity {
 public:
 	/// @brief Constructor
-	Planet(std::string name, float mass);
+	SpaceEntity();
 	/// @brief Destructor
-	virtual ~Planet();
+	virtual ~SpaceEntity();
 
 	/// @brief update is automatically called every frame
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
 	virtual void update(float deltaTime);
 
-	Vector2 GravitationalForce(SpaceShip* entity);
+	float GetMass();
 
-private:
-	std::string planetName;
+	void AddForce(Vector2 force);
+
+	void SetVelocity(Vector2 velocity);
+
+protected:
 	float mass;
-	float gravity;
+	Vector2 velocity;
 };
 
-#endif /* PLANET_H */
+#endif /* SPACEENTITY_H */

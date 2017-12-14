@@ -11,12 +11,24 @@
 
 GameScene::GameScene() : Scene(){
 	spaceship = new SpaceShip();
-	spaceship->position = Point2(SWIDTH/2, SHEIGHT/2);
+	spaceship->position = Point2(1000, SHEIGHT / 2);
+	spaceship->SetVelocity(Vector2(0, -130));
 	addChild(spaceship);
 
-	earth = new Planet("Earth", 3000.0f);
-	earth->position = Point2(500, 400);
+	sun = new Body("sun", 100000.0f);
+	sun->position = Point(SWIDTH / 2, SHEIGHT / 2);
+	addChild(sun);
+	solarSystem.push_back(sun);
+
+	earth = new Body("Earth", 9000.0f);
+	earth->SetOrbid(sun, 80, 80, -0.007, 0);
 	addChild(earth);
+	solarSystem.push_back(earth);
+
+	mars = new Body("Mars", 40000.0f);
+	mars->SetOrbid(sun, 200, 200, 0.005, 0);
+	addChild(mars);
+	solarSystem.push_back(mars);
 }
 
 
@@ -34,7 +46,7 @@ void GameScene::update(float deltaTime){
 		this->stop();
 	}
 
-	spaceship->AddForce(earth->GravitationalForce(spaceship));
-
-	std::cout << ((Vector2)earth->GravitationalForce(spaceship)).getLength() << std::endl;
+	for each (Body* planet in solarSystem) {
+		spaceship->AddForce(planet->GravitationalForce(spaceship));
+	}
 }

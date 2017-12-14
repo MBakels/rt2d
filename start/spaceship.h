@@ -10,9 +10,10 @@
 #define SPACESHIP_H
 
 #include <rt2d/entity.h>
+#include "spaceentity.h"
 
 /// @brief The SpaceShip class handels the spaceship movement and keeps a list of passengers.
-class SpaceShip : public Entity{
+class SpaceShip : public SpaceEntity{
 public:
 	/// @brief Constructor
 	SpaceShip();
@@ -24,15 +25,9 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
-	float GetMass();
-
-	void AddForce(Vector2 force);
-
 private:
 	float rotationSpeed;
-	Vector2 velocity;
 	Polar polar;
-	float mass;
 };
 
 #endif /* SPACESHIP_H */

@@ -160,8 +160,10 @@ IF(MAKE_START)
 		start/spaceship.h
 		start/gamescene.cpp
 		start/gamescene.h
-		start/planet.cpp
-		start/planet.h
+		start/body.cpp
+		start/body.h
+		start/spaceentity.cpp
+		start/spaceentity.h
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}
