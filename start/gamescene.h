@@ -13,6 +13,7 @@
 
 #include "spaceship.h"
 #include "body.h"
+#include "directionarrow.h"
 
 /// @brief The MyScene class is the Scene implementation.
 class GameScene : public Scene{
@@ -27,13 +28,24 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
+	void ApplieGravity();
+
+	void SetupSolarSystem();
+
 private:
 	/// @brief the spaceship controlled by the player.
 	SpaceShip* spaceship;
+	DirectionArrow* directionArrow;
 	std::vector<Body*> solarSystem;
 	Body* sun;
+	Body* mercury;
+	Body* venus;
 	Body* earth;
 	Body* mars;
+	Body* jupiter;
+	Body* saturn;
+	Body* uranus;
+	Body* neptune;
 };
 
 #endif /* GAMESCENE_H */

@@ -23,6 +23,7 @@ void Body::update(float deltaTime) {
 	if (orbidSet) {
 		OrbidBody();
 	}
+	orbidSet = false;
 }
 
 Vector2 Body::GravitationalForce(SpaceEntity* entity) {
@@ -54,5 +55,7 @@ void Body::SetOrbid(Body* orbitingPlanet, float radiusOrbitingPlanetX, float rad
 }
 
 void Body::OrbidBody() {
-	position.x = orbitingPlanetX + sin(angle) * (orbitingPlanet->GetRadius() + radiusOrbitingPlanetX);	position.y = orbitingPlanetY + cos(angle) * (orbitingPlanet->GetRadius() + radiusOrbitingPlanetY);	angle += orbitingSpeed;
+	position.x = orbitingPlanetX + sin(angle) * (orbitingPlanet->GetRadius() + radiusOrbitingPlanetX);
+	position.y = orbitingPlanetY + cos(angle) * (orbitingPlanet->GetRadius() + radiusOrbitingPlanetY);
+	angle += orbitingSpeed;
 }

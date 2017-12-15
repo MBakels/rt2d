@@ -164,6 +164,8 @@ IF(MAKE_START)
 		start/body.h
 		start/spaceentity.cpp
 		start/spaceentity.h
+		start/directionarrow.cpp
+		start/directionarrow.h
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}

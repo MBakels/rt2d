@@ -12,7 +12,7 @@ SpaceShip::SpaceShip() : SpaceEntity(){
 	rotationSpeed = 3.14f;
 	velocity = Vector2(0, 0);
 	//polar = Polar((rand() % 360) * DEG_TO_RAD, 200.0f);
-	polar = Polar(90 * DEG_TO_RAD, 50.0f);
+	polar = Polar(90 * DEG_TO_RAD, 200.0f);
 	mass = 500.0f;
 }
 
