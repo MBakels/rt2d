@@ -391,6 +391,8 @@ void Renderer::_renderLine(const glm::mat4 modelMatrix, Line* line)
 	glBindTexture(GL_TEXTURE_2D, texture->getGLTexture());
 	//glUniform1i(shader->textureID(), 0);
 
+	glLineWidth(4.0f);
+
 	this->_renderMesh(modelMatrix, shader, mesh, numpoints, GL_LINES, blendcolor);
 
 	if (line->dynamic()) {

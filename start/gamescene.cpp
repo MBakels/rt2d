@@ -10,6 +10,9 @@
 #include "gamescene.h"
 
 GameScene::GameScene() : Scene(){
+	currentOrbidShip = NULL;
+	helpersEnabled = true;
+
 	spaceship = new SpaceShip();
 	spaceship->position = Point2(1000, 100);
 	spaceship->SetVelocity(Vector2(0, -130));
@@ -23,19 +26,23 @@ GameScene::GameScene() : Scene(){
 
 
 GameScene::~GameScene(){
-	removeChild(spaceship);
-	removeChild(sun);
-	removeChild(mercury);
-	removeChild(venus);
-	removeChild(earth);
-	removeChild(mars);
 
+	removeChild(spaceship);
 	delete spaceship;
-	delete sun;
-	delete mercury;
-	delete venus;
-	delete earth;
-	delete mars;
+
+	removeChild(directionArrow);
+	delete directionArrow;
+	
+	for each(BasicEntity* child in solarSystem) {
+		removeChild(child);
+		delete child;
+	}
+	/*
+	for each(BasicEntity* child in children()) {
+		removeChild(child);
+		delete child;
+	}
+	*/
 }
 
 void GameScene::update(float deltaTime){
@@ -55,6 +62,10 @@ void GameScene::update(float deltaTime){
 	directionArrow->position = directionArrow_pos;
 
 	ApplieGravity();
+
+	if (currentOrbidShip != NULL) {
+		std::cout << currentOrbidShip->GetName() << std::endl;
+	}
 }
 
 void GameScene::ApplieGravity() {
@@ -67,40 +78,60 @@ void GameScene::ApplieGravity() {
 
 	if (inGravityField.size() != 0) {
 		Vector2 strongetsGravity = inGravityField[0]->GravitationalForce(spaceship);
+		currentOrbidShip = inGravityField[0];
 		for (int i = 1; i < inGravityField.size(); i++) {
 			if (inGravityField[i]->GravitationalForce(spaceship) > strongetsGravity) {
 				strongetsGravity = inGravityField[i]->GravitationalForce(spaceship);
+				currentOrbidShip = inGravityField[i];
 			}
 		}
 		spaceship->AddForce(strongetsGravity);
 	} else {
 		spaceship->AddForce(sun->GravitationalForce(spaceship));
+		currentOrbidShip = NULL;
 	}
 }
 
 void GameScene::SetupSolarSystem() {
 	sun = new Body("Sun", 300000.0f);
-	sun->position = Point(SWIDTH / 2, SHEIGHT / 2);
 	addChild(sun);
 	solarSystem.push_back(sun);
 
 	mercury = new Body("Mercury", 30000.0f);
-	mercury->SetOrbid(sun, 80, 80, 0.01, PI * 0.9);
-	addChild(mercury);
+	mercury->SetOrbid(sun, 200, 200, 0.01, PI * 0.9);
 	solarSystem.push_back(mercury);
 
 	venus = new Body("venus", 45000.0f);
-	venus->SetOrbid(sun, 130, 130, 0.009, PI * 0.5);
-	addChild(venus);
+	venus->SetOrbid(sun, 300, 300, 0.009, PI * 0.5);
 	solarSystem.push_back(venus);
 
 	earth = new Body("Earth", 60000.0f);
-	earth->SetOrbid(sun, 190, 190, 0.008, PI * 1);
-	addChild(earth);
+	earth->SetOrbid(sun, 400, 400, 0.008, PI * 1.2);
 	solarSystem.push_back(earth);
 
 	mars = new Body("Mars", 36000.0f);
-	mars->SetOrbid(sun, 240, 240, 0.007, PI * 1.6);
-	addChild(mars);
+	mars->SetOrbid(sun, 500, 500, 0.007, PI * 1.6);
 	solarSystem.push_back(mars);
+
+	if (helpersEnabled) {
+		CreateHelpers();
+	}
+
+	addChild(mercury);
+	addChild(venus);
+	addChild(earth);
+	addChild(mars);
+}
+
+void GameScene::CreateHelpers() {
+	for each(Body* planet in solarSystem) {
+		Line* circle = new Line();
+		circle->createCircle(planet->GetDistance(Vector2(0, 0)), 30);
+		BasicEntity* helper = new BasicEntity();
+		helper->addLine(circle);
+		helper->line()->color = GRAY;
+		helper->position = Point2(0, 0);
+		addChild(helper);
+		delete circle;
+	}
 }

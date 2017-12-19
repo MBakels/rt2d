@@ -9,7 +9,6 @@
 #ifndef BODY_H
 #define BODY_H
 
-#include <rt2d/entity.h>
 #include "spaceentity.h"
 
 /// @brief The SpaceShip class handels the spaceship movement and keeps a list of passengers.
@@ -32,6 +31,10 @@ public:
 	void SetOrbid(Body* orbitingPlanet, float radiusOrbitingPlanetX, float radiusOrbitingPlanetY, float orbitingSpeed, float angle);
 
 	void OrbidBody();
+
+	std::string GetName();
+
+	float GetDistance(Point3 otherPos);
 
 private:
 	std::string name;

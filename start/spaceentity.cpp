@@ -6,7 +6,7 @@
 
 #include "spaceentity.h"
 
-SpaceEntity::SpaceEntity() : Entity() {
+SpaceEntity::SpaceEntity() : BasicEntity() {
 
 }
 

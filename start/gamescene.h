@@ -32,20 +32,32 @@ public:
 
 	void SetupSolarSystem();
 
+	void CreateHelpers();
+
 private:
 	/// @brief the spaceship controlled by the player.
 	SpaceShip* spaceship;
+	Body* currentOrbidShip;
 	DirectionArrow* directionArrow;
 	std::vector<Body*> solarSystem;
+	bool helpersEnabled;
 	Body* sun;
 	Body* mercury;
+	BasicEntity* mercuryOrbid;
 	Body* venus;
+	BasicEntity* venusOrbid;
 	Body* earth;
+	BasicEntity* earthOrbid;
 	Body* mars;
+	BasicEntity*marsOrbid;
 	Body* jupiter;
+	BasicEntity* jupiterOrbid;
 	Body* saturn;
+	BasicEntity*saturnOrbid;
 	Body* uranus;
+	BasicEntity* uranusOrbid;
 	Body* neptune;
+	BasicEntity* neptuneOrbid;
 };
 
 #endif /* GAMESCENE_H */

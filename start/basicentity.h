@@ -1,38 +1,28 @@
 /**
 * Copyright 2015 Marco Bakels <marcobakels@live.nl>
 *
-* @file spaceentity.h
+* @file basicentity.h
 *
-* @brief description of the SpaceEntity behavior.
+* @brief description of the BasicEntity behavior.
 */
 
-#ifndef SPACEENTITY_H
-#define SPACEENTITY_H
+#ifndef BASICENTITY_H
+#define BASICENTITY_H
 
-#include "basicentity.h"
+#include <rt2d/entity.h>
 
 /// @brief The SpaceShip class handels the spaceship movement and keeps a list of passengers.
-class SpaceEntity : public BasicEntity {
+class BasicEntity : public Entity {
 public:
 	/// @brief Constructor
-	SpaceEntity();
+	BasicEntity();
 	/// @brief Destructor
-	virtual ~SpaceEntity();
+	virtual ~BasicEntity();
 
 	/// @brief update is automatically called every frame
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
 	virtual void update(float deltaTime);
-
-	float GetMass();
-
-	void AddForce(Vector2 force);
-
-	void SetVelocity(Vector2 velocity);
-
-protected:
-	float mass;
-	Vector2 velocity;
 };
 
-#endif /* SPACEENTITY_H */
+#endif /* BASICENTITY_H */

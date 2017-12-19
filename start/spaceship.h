@@ -9,7 +9,6 @@
 #ifndef SPACESHIP_H
 #define SPACESHIP_H
 
-#include <rt2d/entity.h>
 #include "spaceentity.h"
 
 /// @brief The SpaceShip class handels the spaceship movement and keeps a list of passengers.
