@@ -40,24 +40,17 @@ private:
 	Body* currentOrbidShip;
 	DirectionArrow* directionArrow;
 	std::vector<Body*> solarSystem;
+	std::vector<BasicEntity*> helpers;
 	bool helpersEnabled;
 	Body* sun;
 	Body* mercury;
-	BasicEntity* mercuryOrbid;
 	Body* venus;
-	BasicEntity* venusOrbid;
 	Body* earth;
-	BasicEntity* earthOrbid;
 	Body* mars;
-	BasicEntity*marsOrbid;
 	Body* jupiter;
-	BasicEntity* jupiterOrbid;
 	Body* saturn;
-	BasicEntity*saturnOrbid;
 	Body* uranus;
-	BasicEntity* uranusOrbid;
 	Body* neptune;
-	BasicEntity* neptuneOrbid;
 };
 
 #endif /* GAMESCENE_H */

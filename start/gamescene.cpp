@@ -26,23 +26,26 @@ GameScene::GameScene() : Scene(){
 
 
 GameScene::~GameScene(){
-
+	
 	removeChild(spaceship);
 	delete spaceship;
 
 	removeChild(directionArrow);
 	delete directionArrow;
 	
-	for each(BasicEntity* child in solarSystem) {
-		removeChild(child);
-		delete child;
+	std::vector<Body*>::iterator solarSystemIt = solarSystem.begin();
+	while (solarSystemIt != solarSystem.end()) {
+		removeChild((*solarSystemIt));
+		delete (*solarSystemIt);
+		solarSystemIt++;
 	}
-	/*
-	for each(BasicEntity* child in children()) {
-		removeChild(child);
-		delete child;
+
+	std::vector<BasicEntity*>::iterator helpersIt = helpers.begin();
+	while (helpersIt != helpers.end()) {
+		removeChild((*helpersIt));
+		delete (*helpersIt);
+		helpersIt++;
 	}
-	*/
 }
 
 void GameScene::update(float deltaTime){
@@ -126,11 +129,12 @@ void GameScene::SetupSolarSystem() {
 void GameScene::CreateHelpers() {
 	for each(Body* planet in solarSystem) {
 		Line* circle = new Line();
-		circle->createCircle(planet->GetDistance(Vector2(0, 0)), 30);
+		circle->createCircle(planet->GetDistance(Vector2(0, 0)), 50);
 		BasicEntity* helper = new BasicEntity();
 		helper->addLine(circle);
 		helper->line()->color = GRAY;
 		helper->position = Point2(0, 0);
+		helpers.push_back(helper);
 		addChild(helper);
 		delete circle;
 	}
