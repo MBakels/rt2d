@@ -99,7 +99,7 @@ void GameScene::SetupSolarSystem() {
 	sun = new Body("Sun", 300000.0f);
 	addChild(sun);
 	solarSystem.push_back(sun);
-
+	/*
 	mercury = new Body("Mercury", 30000.0f);
 	mercury->SetOrbid(sun, 200, 200, 0.01, PI * 0.9);
 	solarSystem.push_back(mercury);
@@ -107,7 +107,7 @@ void GameScene::SetupSolarSystem() {
 	venus = new Body("venus", 45000.0f);
 	venus->SetOrbid(sun, 300, 300, 0.009, PI * 0.5);
 	solarSystem.push_back(venus);
-
+	*/
 	earth = new Body("Earth", 60000.0f);
 	earth->SetOrbid(sun, 400, 400, 0.008, PI * 1.2);
 	solarSystem.push_back(earth);
