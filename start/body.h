@@ -26,17 +26,20 @@ public:
 
 	Vector2 GravitationalForce(SpaceEntity* entity);
 
-	float GetRadius();
+	float GetRadius() { return radius; };
 
 	void SetOrbid(Body* orbitingPlanet, float radiusOrbitingPlanetX, float radiusOrbitingPlanetY, float orbitingSpeed, float angle);
 
 	void OrbidBody();
 
-	std::string GetName();
+	std::string GetName() { return name; };
 
 	float GetDistance(Point3 otherPos);
 
+	void SetStopPlanetMovement(bool pauseOrbid) { this->pauseOrbid = pauseOrbid; };
+
 private:
+	bool pauseOrbid;
 	std::string name;
 	float radius;
 	bool orbidSet;

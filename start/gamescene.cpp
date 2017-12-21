@@ -89,8 +89,10 @@ void GameScene::ApplieGravity() {
 			}
 		}
 		spaceship->AddForce(strongetsGravity);
+		StopPlanetMovement(true);
 	} else {
 		spaceship->AddForce(sun->GravitationalForce(spaceship));
+		StopPlanetMovement(false);
 		currentOrbidShip = NULL;
 	}
 }
@@ -137,5 +139,11 @@ void GameScene::CreateHelpers() {
 		helpers.push_back(helper);
 		addChild(helper);
 		delete circle;
+	}
+}
+
+void GameScene::StopPlanetMovement(bool stopMovement) {
+	for each(Body* planet in solarSystem) {
+		planet->SetStopPlanetMovement(stopMovement);
 	}
 }

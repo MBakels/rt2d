@@ -13,6 +13,7 @@ Body::Body(std::string name, float mass) : SpaceEntity() {
 	sprite()->size = Point(mass / 1000, mass / 1000);
 	radius = sprite()->size.x;
 	orbidSet = false;
+	pauseOrbid = false;
 }
 
 Body::~Body() {
@@ -20,8 +21,8 @@ Body::~Body() {
 }
 
 void Body::update(float deltaTime) {
-	if (orbidSet) {
-		//OrbidBody();
+	if (orbidSet && !pauseOrbid) {
+		OrbidBody();
 	}
 }
 
@@ -36,10 +37,6 @@ Vector2 Body::GravitationalForce(SpaceEntity* entity) {
 	Vector2 gravitationalForce = Vector2(ax / entity->GetMass(), ay / entity->GetMass());
 
 	return gravitationalForce;
-}
-
-float Body::GetRadius() {
-	return radius;
 }
 
 void Body::SetOrbid(Body* orbitingPlanet, float radiusOrbitingPlanetX, float radiusOrbitingPlanetY, float orbitingSpeed, float angle) {
@@ -61,10 +58,7 @@ void Body::OrbidBody() {
 	angle += orbitingSpeed;
 }
 
-std::string Body::GetName() {
-	return name;
-}
-
 float Body::GetDistance(Point3 otherPos) {
 	return sqrt(pow((position.x - otherPos.x), 2) + pow((position.y - otherPos.y), 2));
 }
+
