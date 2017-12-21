@@ -134,7 +134,7 @@ void GameScene::SetupSolarSystem() {
 void GameScene::CreateHelpers() {
 	for each(Body* planet in solarSystem) {
 		Line* circle = new Line();
-		circle->createCircle(planet->GetDistance(Vector2(0, 0)), 70);
+		circle->createCircle(planet->GetDistance(Vector2(0, 0)), 100);
 		BasicEntity* helper = new BasicEntity();
 		helper->addLine(circle);
 		helper->line()->color = GRAY;
