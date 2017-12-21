@@ -10,11 +10,9 @@ Body::Body(std::string name, float mass, float diameter) : SpaceEntity() {
 	this->name = name;
 	this->mass = mass;
 	addSprite("assets/planet.tga");
-	//sprite()->size = Point(mass / 1000, mass / 1000);
 	sprite()->size = Point(diameter, diameter);
 	radius = sprite()->size.x;
 	orbidSet = false;
-	pauseOrbid = false;
 }
 
 Body::~Body() {
@@ -22,9 +20,10 @@ Body::~Body() {
 }
 
 void Body::update(float deltaTime) {
-	if (orbidSet && !pauseOrbid) {
+	if (orbidSet) {
 		OrbidBody(deltaTime);
 	}
+	slowDown = 1;
 }
 
 Vector2 Body::GravitationalForce(SpaceEntity* entity) {
@@ -55,7 +54,7 @@ void Body::SetOrbid(Body* orbitingPlanet, float orbitingHeight, float orbitingSp
 void Body::OrbidBody(float deltaTime) {
 	position.x = orbitingPlanetX + sin(angle) * (orbitingPlanet->GetRadius() + orbitingHeight);
 	position.y = orbitingPlanetY + cos(angle) * (orbitingPlanet->GetRadius() + orbitingHeight);
-	angle += orbitingSpeed * deltaTime;
+	angle += (orbitingSpeed * slowDown) * deltaTime;
 }
 
 float Body::GetDistance(Point3 otherPos) {

@@ -65,10 +65,6 @@ void GameScene::update(float deltaTime){
 	directionArrow->position = directionArrow_pos;
 
 	ApplieGravity();
-
-	if (currentOrbidShip != NULL) {
-		std::cout << currentOrbidShip->GetName() << std::endl;
-	}
 }
 
 void GameScene::ApplieGravity() {
@@ -89,10 +85,17 @@ void GameScene::ApplieGravity() {
 			}
 		}
 		spaceship->AddForce(strongetsGravity);
-		StopPlanetMovement(true);
+		if (currentOrbidShip->GravitationalForce(spaceship).getLength() >= 0.5f) {
+			float slowDown = (0.8f / currentOrbidShip->GravitationalForce(spaceship).getLength()) - 1.6f;
+			if (slowDown > 1) { slowDown = 1; }
+			if (slowDown < 0) { slowDown = 0; }
+			SlowDownPlanets(slowDown);
+		}
+		
+		//std::cout << strongetsGravity.getLength() << std::endl;
+		
 	} else {
 		spaceship->AddForce(sun->GravitationalForce(spaceship));
-		StopPlanetMovement(false);
 		currentOrbidShip = NULL;
 	}
 }
@@ -142,8 +145,8 @@ void GameScene::CreateHelpers() {
 	}
 }
 
-void GameScene::StopPlanetMovement(bool stopMovement) {
+void GameScene::SlowDownPlanets(float amount) {
 	for each(Body* planet in solarSystem) {
-		planet->SetStopPlanetMovement(stopMovement);
+		planet->SetSlowDown(amount);
 	}
 }

@@ -36,10 +36,10 @@ public:
 
 	float GetDistance(Point3 otherPos);
 
-	void SetStopPlanetMovement(bool pauseOrbid) { this->pauseOrbid = pauseOrbid; };
+	void SetSlowDown(float amount) { this->slowDown = amount; };
 
 private:
-	bool pauseOrbid;
+	float slowDown;
 	std::string name;
 	float radius;
 	bool orbidSet;
