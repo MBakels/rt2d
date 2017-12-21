@@ -101,7 +101,7 @@ void GameScene::ApplieGravity() {
 }
 
 void GameScene::SetupSolarSystem() {
-	sun = new Body("Sun", 300000.0f, 300.0f);
+	sun = new Body("Sun", 400000.0f, 300.0f);
 	addChild(sun);
 	solarSystem.push_back(sun);
 
