@@ -13,12 +13,12 @@ GameScene::GameScene() : Scene(){
 	currentOrbidShip = NULL;
 	helpersEnabled = true;
 
+	SetupSolarSystem();
+
 	spaceship = new SpaceShip();
 	spaceship->position = Point2(800, 200);
 	spaceship->SetVelocity(Vector2(0, -130));
 	addChild(spaceship);
-
-	SetupSolarSystem();
 
 	directionArrow = new DirectionArrow(sun);
 	addChild(directionArrow);
