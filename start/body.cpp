@@ -22,7 +22,7 @@ Body::~Body() {
 
 void Body::update(float deltaTime) {
 	if (orbidSet && !pauseOrbid) {
-		OrbidBody();
+		OrbidBody(deltaTime);
 	}
 }
 
@@ -39,23 +39,22 @@ Vector2 Body::GravitationalForce(SpaceEntity* entity) {
 	return gravitationalForce;
 }
 
-void Body::SetOrbid(Body* orbitingPlanet, float radiusOrbitingPlanetX, float radiusOrbitingPlanetY, float orbitingSpeed, float angle) {
+void Body::SetOrbid(Body* orbitingPlanet, float orbitingHeight, float orbitingSpeed, float angle) {
 	this->orbitingPlanet = orbitingPlanet;
 	this->orbitingPlanetX = orbitingPlanet->position.x;
 	this->orbitingPlanetY = orbitingPlanet->position.y;
-	this->radiusOrbitingPlanetX = radiusOrbitingPlanetX;
-	this->radiusOrbitingPlanetY = radiusOrbitingPlanetY;
+	this->orbitingHeight = orbitingHeight;
 	this->orbitingSpeed = orbitingSpeed;
 	this->angle = angle;
 	orbidSet = true;
 
-	OrbidBody();
+	OrbidBody(0.0f);
 }
 
-void Body::OrbidBody() {
-	position.x = orbitingPlanetX + sin(angle) * (orbitingPlanet->GetRadius() + radiusOrbitingPlanetX);
-	position.y = orbitingPlanetY + cos(angle) * (orbitingPlanet->GetRadius() + radiusOrbitingPlanetY);
-	angle += orbitingSpeed;
+void Body::OrbidBody(float deltaTime) {
+	position.x = orbitingPlanetX + sin(angle) * (orbitingPlanet->GetRadius() + orbitingHeight);
+	position.y = orbitingPlanetY + cos(angle) * (orbitingPlanet->GetRadius() + orbitingHeight);
+	angle += orbitingSpeed * deltaTime;
 }
 
 float Body::GetDistance(Point3 otherPos) {

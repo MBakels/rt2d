@@ -28,9 +28,9 @@ public:
 
 	float GetRadius() { return radius; };
 
-	void SetOrbid(Body* orbitingPlanet, float radiusOrbitingPlanetX, float radiusOrbitingPlanetY, float orbitingSpeed, float angle);
+	void SetOrbid(Body* orbitingPlanet, float orbitingHeight, float orbitingSpeed, float angle);
 
-	void OrbidBody();
+	void OrbidBody(float deltaTime);
 
 	std::string GetName() { return name; };
 
@@ -46,8 +46,7 @@ private:
 	Body* orbitingPlanet;
 	float orbitingPlanetX;
 	float orbitingPlanetY;
-	float radiusOrbitingPlanetX;
-	float radiusOrbitingPlanetY;
+	float orbitingHeight;
 	float orbitingSpeed;
 	float angle;
 };
