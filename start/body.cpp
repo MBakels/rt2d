@@ -6,11 +6,12 @@
 
 #include "body.h"
 
-Body::Body(std::string name, float mass) : SpaceEntity() {
+Body::Body(std::string name, float mass, float diameter) : SpaceEntity() {
 	this->name = name;
 	this->mass = mass;
 	addSprite("assets/planet.tga");
-	sprite()->size = Point(mass / 1000, mass / 1000);
+	//sprite()->size = Point(mass / 1000, mass / 1000);
+	sprite()->size = Point(diameter, diameter);
 	radius = sprite()->size.x;
 	orbidSet = false;
 	pauseOrbid = false;

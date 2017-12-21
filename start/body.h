@@ -15,7 +15,7 @@
 class Body : public SpaceEntity {
 public:
 	/// @brief Constructor
-	Body(std::string name, float mass);
+	Body(std::string name, float mass, float diameter);
 	/// @brief Destructor
 	virtual ~Body();
 

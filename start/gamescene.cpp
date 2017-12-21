@@ -14,7 +14,7 @@ GameScene::GameScene() : Scene(){
 	helpersEnabled = true;
 
 	spaceship = new SpaceShip();
-	spaceship->position = Point2(1000, 100);
+	spaceship->position = Point2(800, 200);
 	spaceship->SetVelocity(Vector2(0, -130));
 	addChild(spaceship);
 
@@ -98,23 +98,23 @@ void GameScene::ApplieGravity() {
 }
 
 void GameScene::SetupSolarSystem() {
-	sun = new Body("Sun", 300000.0f);
+	sun = new Body("Sun", 300000.0f, 300.0f);
 	addChild(sun);
 	solarSystem.push_back(sun);
 
-	mercury = new Body("Mercury", 30000.0f);
+	mercury = new Body("Mercury", 30000.0f, 32.53f);
 	mercury->SetOrbid(sun, 386, 0.8, PI * 0.9);
 	solarSystem.push_back(mercury);
 
-	venus = new Body("venus", 45000.0f);
+	venus = new Body("venus", 45000.0f, 80.69f);
 	venus->SetOrbid(sun, 721.33, 0.7, PI * 0.5);
 	solarSystem.push_back(venus);
 
-	earth = new Body("Earth", 60000.0f);
+	earth = new Body("Earth", 60000.0f, 85.04f);
 	earth->SetOrbid(sun, 997.33, 0.6, PI * 1.2);
 	solarSystem.push_back(earth);
 
-	mars = new Body("Mars", 36000.0f);
+	mars = new Body("Mars", 36000.0f, 45.28f);
 	mars->SetOrbid(sun, 1519.33, 0.5, PI * 1.6);
 	solarSystem.push_back(mars);
 
@@ -131,7 +131,7 @@ void GameScene::SetupSolarSystem() {
 void GameScene::CreateHelpers() {
 	for each(Body* planet in solarSystem) {
 		Line* circle = new Line();
-		circle->createCircle(planet->GetDistance(Vector2(0, 0)), 50);
+		circle->createCircle(planet->GetDistance(Vector2(0, 0)), 70);
 		BasicEntity* helper = new BasicEntity();
 		helper->addLine(circle);
 		helper->line()->color = GRAY;
