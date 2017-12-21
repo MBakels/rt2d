@@ -6,13 +6,13 @@
 
 #include "body.h"
 
-Body::Body(std::string name, float mass) : SpaceEntity() {
+Body::Body(std::string name, double mass, double diameter) : SpaceEntity() {
+	gravityConstant = 6.6742e-11;
 	this->name = name;
 	this->mass = mass;
+	this->radius = diameter / 2;
 	addSprite("assets/planet.tga");
-	sprite()->size = Point(mass / 1000, mass / 1000);
-	radius = sprite()->size.x;
-	orbidSet = false;
+	sprite()->size = Point(diameter, diameter);
 }
 
 Body::~Body() {
@@ -20,9 +20,7 @@ Body::~Body() {
 }
 
 void Body::update(float deltaTime) {
-	if (orbidSet) {
-		//OrbidBody();
-	}
+	position += velocity;
 }
 
 Vector2 Body::GravitationalForce(SpaceEntity* entity) {
@@ -30,7 +28,8 @@ Vector2 Body::GravitationalForce(SpaceEntity* entity) {
 	double dy = position.y - entity->position.y;
 	double distSQ = dx * dx + dy * dy;
 	double dist = sqrt(distSQ);
-	double force = mass * entity->GetMass() / distSQ;
+	//double force = mass * entity->GetMass() / distSQ;
+	double force = (gravityConstant * (mass + entity->GetMass()) / (dist*dist));
 	double ax = (force * dx) / dist;
 	double ay = (force * dy) / dist;
 	Vector2 gravitationalForce = Vector2(ax / entity->GetMass(), ay / entity->GetMass());
@@ -42,23 +41,16 @@ float Body::GetRadius() {
 	return radius;
 }
 
-void Body::SetOrbid(Body* orbitingPlanet, float radiusOrbitingPlanetX, float radiusOrbitingPlanetY, float orbitingSpeed, float angle) {
+void Body::SetOrbid(Body* orbitingPlanet, double distance) {
 	this->orbitingPlanet = orbitingPlanet;
-	this->orbitingPlanetX = orbitingPlanet->position.x;
-	this->orbitingPlanetY = orbitingPlanet->position.y;
-	this->radiusOrbitingPlanetX = radiusOrbitingPlanetX;
-	this->radiusOrbitingPlanetY = radiusOrbitingPlanetY;
-	this->orbitingSpeed = orbitingSpeed;
-	this->angle = angle;
-	orbidSet = true;
+	this->position = orbitingPlanet->position;
+	this->position.x += distance;
 
-	OrbidBody();
-}
 
-void Body::OrbidBody() {
-	position.x = orbitingPlanetX + sin(angle) * (orbitingPlanet->GetRadius() + radiusOrbitingPlanetX);
-	position.y = orbitingPlanetY + cos(angle) * (orbitingPlanet->GetRadius() + radiusOrbitingPlanetY);
-	angle += orbitingSpeed;
+	double a = gravityConstant * (orbitingPlanet->GetMass() + mass);
+	double b = a / GetDistance(orbitingPlanet->position);
+	double vel = sqrt(b);
+	SetVelocity(Vector2(0, vel));
 }
 
 std::string Body::GetName() {

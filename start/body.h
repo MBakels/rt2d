@@ -15,7 +15,7 @@
 class Body : public SpaceEntity {
 public:
 	/// @brief Constructor
-	Body(std::string name, float mass);
+	Body(std::string name, double mass, double diameter);
 	/// @brief Destructor
 	virtual ~Body();
 
@@ -28,15 +28,15 @@ public:
 
 	float GetRadius();
 
-	void SetOrbid(Body* orbitingPlanet, float radiusOrbitingPlanetX, float radiusOrbitingPlanetY, float orbitingSpeed, float angle);
-
-	void OrbidBody();
+	void SetOrbid(Body* orbitingPlanet, double distance);
 
 	std::string GetName();
 
 	float GetDistance(Point3 otherPos);
 
 private:
+	float scale;
+	double gravityConstant;
 	std::string name;
 	float radius;
 	bool orbidSet;
