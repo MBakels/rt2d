@@ -106,19 +106,19 @@ void GameScene::SetupSolarSystem() {
 	solarSystem.push_back(sun);
 
 	mercury = new Body("Mercury", 30000.0f, 32.53f);
-	mercury->SetOrbid(sun, 386, 0.8, PI * 0.9);
+	mercury->SetOrbid(sun, 386, 0.09, PI * 0.9);
 	solarSystem.push_back(mercury);
 
 	venus = new Body("venus", 45000.0f, 80.69f);
-	venus->SetOrbid(sun, 721.33, 0.7, PI * 0.5);
+	venus->SetOrbid(sun, 721.33, 0.08, PI * 0.5);
 	solarSystem.push_back(venus);
 
 	earth = new Body("Earth", 60000.0f, 85.04f);
-	earth->SetOrbid(sun, 997.33, 0.6, PI * 1.2);
+	earth->SetOrbid(sun, 997.33, 0.07, PI * 1.2);
 	solarSystem.push_back(earth);
 
 	mars = new Body("Mars", 36000.0f, 45.28f);
-	mars->SetOrbid(sun, 1519.33, 0.5, PI * 1.6);
+	mars->SetOrbid(sun, 1519.33, 0.06, PI * 1.6);
 	solarSystem.push_back(mars);
 
 	if (helpersEnabled) {
