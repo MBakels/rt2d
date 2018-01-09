@@ -38,6 +38,8 @@ public:
 
 	void SetSlowDown(float amount) { this->slowDown = amount; };
 
+	float GetOrbitingSpeed() { return orbitingSpeed; };
+
 private:
 	float slowDown;
 	std::string name;
