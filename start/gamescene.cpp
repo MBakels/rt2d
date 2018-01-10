@@ -99,7 +99,7 @@ void GameScene::ApplieGravity(float deltaTime) {
 	}
 }
 */
-// diameter 1/150           distance 1/150.000
+
 void GameScene::SetupSolarSystem() {
 	sun = new Body("Sun", 1988500e24 / 2000000000000, 300); // 1988500e24    1391400
 	addChild(sun);
