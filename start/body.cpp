@@ -6,13 +6,15 @@
 
 #include "body.h"
 
-Body::Body(std::string name, double mass, double diameter) : SpaceEntity() {
+Body::Body(std::string name, float mass, float diameter) : SpaceEntity() {
 	gravityConstant = 6.6742e-11;
 	this->name = name;
 	this->mass = mass;
 	this->diameter = diameter;
 	addSprite("assets/planet.tga");
 	sprite()->size = Point(diameter, diameter);
+	orbitingPlanet = NULL;
+	stationOrbid = NULL;
 }
 
 Body::~Body() {
@@ -20,7 +22,8 @@ Body::~Body() {
 }
 
 void Body::update(float deltaTime) {
-	position += velocity * deltaTime;
+	this->position += this->velocity * deltaTime;
+	
 }
 
 Vector2 Body::GravitationalForce(SpaceEntity* entity) {
@@ -40,7 +43,7 @@ float Body::GetDiameter() {
 	return diameter;
 }
 
-void Body::SetOrbid(Body* orbitingPlanet, double distance) {
+void Body::SetOrbid(Body* orbitingPlanet, float distance) {
 	this->orbitingPlanet = orbitingPlanet;
 	this->position = orbitingPlanet->position;
 	this->position.x += distance;
@@ -49,6 +52,16 @@ void Body::SetOrbid(Body* orbitingPlanet, double distance) {
 	double b = a / distance;
 	double vel = sqrt(b);
 	SetVelocity(Vector2(0, vel));
+}
+
+void Body::SetStationOrbid(float height) {
+	Line* circle = new Line();
+	circle->createCircle(height, 20);
+	stationOrbid = new BasicEntity();
+	stationOrbid->addLine(circle);
+	stationOrbid->line()->color = BLUE;
+	addChild(stationOrbid);
+	delete circle;
 }
 
 float Body::GetDistance(Point3 otherPos) {

@@ -68,10 +68,10 @@ void GameScene::update(float deltaTime){
 	for each(Body* planet in solarSystem) {
 		if (planet != sun) {
 			planet->AddForce((sun->GravitationalForce(planet) * deltaTime));
-			std::cout << "Sun force on " << planet->GetName() << ":    " << sun->GravitationalForce(planet).getLength() << std::endl;
+			//std::cout << "Sun force on " << planet->GetName() << ":    " << sun->GravitationalForce(planet).getLength() << std::endl;
 		}
 		spaceship->AddForce(planet->GravitationalForce(spaceship) * deltaTime);
-		std::cout << planet->GetName() << "    " << planet->GravitationalForce(spaceship).getLength() << std::endl;
+		//std::cout << planet->GetName() << "    " << planet->GravitationalForce(spaceship).getLength() << std::endl;
 	}
 }
 
@@ -106,18 +106,22 @@ void GameScene::SetupSolarSystem() {
 	
 	mercury = new Body("Mercury", 0.33011e24 / 200000000, 4879 / 100); // 0.33011e24    4879
 	mercury->SetOrbid(sun, 57.91e6 / 100000); // 57.91e6
+	mercury->SetStationOrbid(100);
 	solarSystem.push_back(mercury);
 
 	venus = new Body("venus", 4.8675e24 / 200000000, 12104 / 100); // 4.8675e24    12104
 	venus->SetOrbid(sun, 108.21e6 / 100000); // 108.21e6
+	venus->SetStationOrbid(100);
 	solarSystem.push_back(venus);
 	
 	earth = new Body("Earth", 5.97237e24 / 200000000, 12756 / 100); // 5.97237e24    12756
 	earth->SetOrbid(sun, 149.60e6 / 100000); // 149.60e6
+	earth->SetStationOrbid(100);
 	solarSystem.push_back(earth);
 	
 	mars = new Body("Mars", 0.64171e24 / 200000000 , 6792 / 100); // 0.64171e24    6792
 	mars->SetOrbid(sun, 227.92e6 / 100000); // 227.92e6
+	mars->SetStationOrbid(100);
 	solarSystem.push_back(mars);
 	
 	if (helpersEnabled) {

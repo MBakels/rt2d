@@ -23,7 +23,7 @@ float SpaceEntity::GetMass() {
 }
 
 void SpaceEntity::AddForce(Vector2 force) {
-	velocity += force;
+	this->velocity += force;
 }
 
 void SpaceEntity::SetVelocity(Vector2 velocity) {
