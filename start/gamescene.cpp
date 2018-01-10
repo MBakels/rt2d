@@ -75,7 +75,7 @@ void GameScene::update(float deltaTime){
 	}
 }
 
-void GameScene::ApplieGravity(float deltaTime) {
+void GameScene::ApplieGravity() {
 	std::vector<Body*> inGravityField;
 	for each(Body* planet in solarSystem) {
 		if (planet->GravitationalForce(spaceship).getLength() >= 0.3f && planet != sun) {

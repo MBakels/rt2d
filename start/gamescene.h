@@ -28,7 +28,7 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
-	void ApplieGravity(float deltaTime);
+	void ApplieGravity();
 
 	void SetupSolarSystem();
 
@@ -51,9 +51,6 @@ private:
 	Body* saturn;
 	Body* uranus;
 	Body* neptune;
-
-	float angle;
-	float testSpeed;
 };
 
 #endif /* GAMESCENE_H */
