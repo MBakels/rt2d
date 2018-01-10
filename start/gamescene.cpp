@@ -74,7 +74,7 @@ void GameScene::update(float deltaTime){
 		std::cout << planet->GetName() << "    " << planet->GravitationalForce(spaceship).getLength() << std::endl;
 	}
 }
-/*
+
 void GameScene::ApplieGravity(float deltaTime) {
 	std::vector<Body*> inGravityField;
 	for each(Body* planet in solarSystem) {
@@ -98,7 +98,6 @@ void GameScene::ApplieGravity(float deltaTime) {
 		currentOrbidShip = NULL;
 	}
 }
-*/
 
 void GameScene::SetupSolarSystem() {
 	sun = new Body("Sun", 1988500e24 / 2000000000000, 300); // 1988500e24    1391400

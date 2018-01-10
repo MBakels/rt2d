@@ -34,8 +34,6 @@ public:
 
 	void CreateHelpers();
 
-	void SlowDownPlanets(float amount);
-
 private:
 	/// @brief the spaceship controlled by the player.
 	SpaceShip* spaceship;
