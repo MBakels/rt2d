@@ -68,7 +68,7 @@ void GameScene::update(float deltaTime){
 	for each(Body* planet in solarSystem) {
 		if (planet != sun) {
 			planet->AddForce((sun->GravitationalForce(planet) * deltaTime));
-			std::cout << sun->GravitationalForce(planet).getLength() << std::endl;
+			std::cout << "Sun force on " << planet->GetName() << ":    " << sun->GravitationalForce(planet).getLength() << std::endl;
 		}
 		spaceship->AddForce(planet->GravitationalForce(spaceship) * deltaTime);
 		std::cout << planet->GetName() << "    " << planet->GravitationalForce(spaceship).getLength() << std::endl;
