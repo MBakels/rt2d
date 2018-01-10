@@ -34,8 +34,6 @@ public:
 
 	float GetDistance(Point3 otherPos);
 
-	//float GetOrbitingSpeed() { return orbitingSpeed; };
-
 private:
 	double gravityConstant;
 	std::string name;
