@@ -19,10 +19,10 @@
 
 
 // screenwidth, screenheight
-#define SWIDTH 1920 ///< The screen width
-#define SHEIGHT 1080 ///< The screen height
+#define SWIDTH 1500 ///< The screen width
+#define SHEIGHT 1000 ///< The screen height
 
-#define FULLSCREEN 1 ///< Fullscreen or not
+#define FULLSCREEN 0 ///< Fullscreen or not
 
 #define WINDOWNAME "RT2D" ///< The window name
 

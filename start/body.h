@@ -26,7 +26,7 @@ public:
 
 	Vector2 GravitationalForce(SpaceEntity* entity);
 
-	float GetRadius();
+	float GetDiameter();
 
 	void SetOrbid(Body* orbitingPlanet, double distance);
 
@@ -35,18 +35,10 @@ public:
 	float GetDistance(Point3 otherPos);
 
 private:
-	float scale;
 	double gravityConstant;
 	std::string name;
-	float radius;
-	bool orbidSet;
+	float diameter;
 	Body* orbitingPlanet;
-	float orbitingPlanetX;
-	float orbitingPlanetY;
-	float radiusOrbitingPlanetX;
-	float radiusOrbitingPlanetY;
-	float orbitingSpeed;
-	float angle;
 };
 
 #endif /* BODY_H */

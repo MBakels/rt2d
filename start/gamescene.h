@@ -51,9 +51,6 @@ private:
 	Body* saturn;
 	Body* uranus;
 	Body* neptune;
-
-
-	DirectionArrow* tempArrow;
 };
 
 #endif /* GAMESCENE_H */
