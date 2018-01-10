@@ -15,7 +15,7 @@
 class Body : public SpaceEntity {
 public:
 	/// @brief Constructor
-	Body(std::string name, float mass, float diameter);
+	Body(std::string name, double mass, double diameter);
 	/// @brief Destructor
 	virtual ~Body();
 
@@ -26,31 +26,21 @@ public:
 
 	Vector2 GravitationalForce(SpaceEntity* entity);
 
-	float GetRadius() { return radius; };
+	float GetDiameter();
 
-	void SetOrbid(Body* orbitingPlanet, float orbitingHeight, float orbitingSpeed, float angle);
-
-	void OrbidBody(float deltaTime);
+	void SetOrbid(Body* orbitingPlanet, double distance);
 
 	std::string GetName() { return name; };
 
 	float GetDistance(Point3 otherPos);
 
-	void SetSlowDown(float amount) { this->slowDown = amount; };
-
 	float GetOrbitingSpeed() { return orbitingSpeed; };
 
 private:
-	float slowDown;
+	double gravityConstant;
 	std::string name;
-	float radius;
-	bool orbidSet;
+	float diameter;
 	Body* orbitingPlanet;
-	float orbitingPlanetX;
-	float orbitingPlanetY;
-	float orbitingHeight;
-	float orbitingSpeed;
-	float angle;
 };
 
 #endif /* BODY_H */

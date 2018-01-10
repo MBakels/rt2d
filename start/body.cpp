@@ -6,13 +6,13 @@
 
 #include "body.h"
 
-Body::Body(std::string name, float mass, float diameter) : SpaceEntity() {
+Body::Body(std::string name, double mass, double diameter) : SpaceEntity() {
+	gravityConstant = 6.6742e-11;
 	this->name = name;
 	this->mass = mass;
+	this->diameter = diameter;
 	addSprite("assets/planet.tga");
 	sprite()->size = Point(diameter, diameter);
-	radius = sprite()->size.x;
-	orbidSet = false;
 }
 
 Body::~Body() {
@@ -20,10 +20,7 @@ Body::~Body() {
 }
 
 void Body::update(float deltaTime) {
-	if (orbidSet) {
-		OrbidBody(deltaTime);
-	}
-	slowDown = 1;
+	position += velocity * deltaTime;
 }
 
 Vector2 Body::GravitationalForce(SpaceEntity* entity) {
@@ -31,30 +28,27 @@ Vector2 Body::GravitationalForce(SpaceEntity* entity) {
 	double dy = position.y - entity->position.y;
 	double distSQ = dx * dx + dy * dy;
 	double dist = sqrt(distSQ);
-	double force = mass * entity->GetMass() / distSQ;
+	double force = (gravityConstant * ((mass + entity->GetMass()) / (dist*dist)));
 	double ax = (force * dx) / dist;
 	double ay = (force * dy) / dist;
-	Vector2 gravitationalForce = Vector2(ax / entity->GetMass(), ay / entity->GetMass());
+	Vector2 gravitationalForce = Vector2(ax, ay);
 
 	return gravitationalForce;
 }
 
-void Body::SetOrbid(Body* orbitingPlanet, float orbitingHeight, float orbitingSpeed, float angle) {
-	this->orbitingPlanet = orbitingPlanet;
-	this->orbitingPlanetX = orbitingPlanet->position.x;
-	this->orbitingPlanetY = orbitingPlanet->position.y;
-	this->orbitingHeight = orbitingHeight;
-	this->orbitingSpeed = orbitingSpeed;
-	this->angle = angle;
-	orbidSet = true;
-
-	OrbidBody(0.0f);
+float Body::GetDiameter() {
+	return diameter;
 }
 
-void Body::OrbidBody(float deltaTime) {
-	position.x = orbitingPlanetX + sin(angle) * (orbitingPlanet->GetRadius() + orbitingHeight);
-	position.y = orbitingPlanetY + cos(angle) * (orbitingPlanet->GetRadius() + orbitingHeight);
-	angle += (orbitingSpeed * slowDown) * deltaTime;
+void Body::SetOrbid(Body* orbitingPlanet, double distance) {
+	this->orbitingPlanet = orbitingPlanet;
+	this->position = orbitingPlanet->position;
+	this->position.x += distance;
+
+	double a = gravityConstant * (orbitingPlanet->GetMass() + mass);
+	double b = a / distance;
+	double vel = sqrt(b);
+	SetVelocity(Vector2(0, vel));
 }
 
 float Body::GetDistance(Point3 otherPos) {

@@ -19,8 +19,8 @@
 
 
 // screenwidth, screenheight
-#define SWIDTH 1440 ///< The screen width
-#define SHEIGHT 900 ///< The screen height
+#define SWIDTH 1500 ///< The screen width
+#define SHEIGHT 1000 ///< The screen height
 
 #define FULLSCREEN 0 ///< Fullscreen or not
 

@@ -10,6 +10,8 @@
 #include "gamescene.h"
 
 GameScene::GameScene() : Scene(){
+	srand(time(NULL));
+
 	currentOrbidShip = NULL;
 	helpersEnabled = true;
 
@@ -17,23 +19,15 @@ GameScene::GameScene() : Scene(){
 
 	spaceship = new SpaceShip();
 	spaceship->position = Point2(800, 0);
-	spaceship->SetVelocity(Vector2(0, 0));
+	spaceship->SetVelocity(Vector2(0, 340));
 	addChild(spaceship);
 
 	directionArrow = new DirectionArrow(sun);
 	addChild(directionArrow);
-
-	testSpeed = 0.6f;
-	//angle = 2.2f;
-
-	Vector2 test = Vector2(Point(0, 0, 0), spaceship->position);
-	angle = test.getAngle();
-	//if (angle <= 0) { angle += 360 * DEG_TO_RAD; }
 }
 
 
 GameScene::~GameScene(){
-	
 	removeChild(spaceship);
 	delete spaceship;
 
@@ -63,33 +57,24 @@ void GameScene::update(float deltaTime){
 		this->stop();
 	}
 
-	/*
-	Vector2 test = Vector2(Point(0, 0, 0), spaceship->position);
-	//angle = test.getAngle();
-	//if (angle <= 0) { angle += 360 * DEG_TO_RAD; }
-
-	angle += (0.6f * deltaTime);
-	float distance = sun->GetDistance(spaceship->position);
-	spaceship->position.x = sun->position.x + sin(angle) * distance;
-	spaceship->position.y = sun->position.y + cos(angle) * distance;
-	*/
-
 	camera()->position.x = spaceship->position.x;
 	camera()->position.y = spaceship->position.y;
-
+	
 	Point2 cam_pos = Point2(camera()->position.x, camera()->position.y);
 
 	Point2 directionArrow_pos = Point2(cam_pos.x, cam_pos.y - 50 + SHEIGHT / 2);
 	directionArrow->position = directionArrow_pos;
-
-	ApplieGravity(deltaTime);
-
-	Vector2 test = Vector2(Point(0, 0, 0), spaceship->position);
-	float angle = test.getAngle();
-	//if(angle <= 0){ angle += 360 * DEG_TO_RAD; }
-	//std::cout << angle << std::endl;
+	
+	for each(Body* planet in solarSystem) {
+		if (planet != sun) {
+			planet->AddForce((sun->GravitationalForce(planet) * deltaTime));
+			std::cout << "Sun force on " << planet->GetName() << ":    " << sun->GravitationalForce(planet).getLength() << std::endl;
+		}
+		spaceship->AddForce(planet->GravitationalForce(spaceship) * deltaTime);
+		std::cout << planet->GetName() << "    " << planet->GravitationalForce(spaceship).getLength() << std::endl;
+	}
 }
-
+/*
 void GameScene::ApplieGravity(float deltaTime) {
 	std::vector<Body*> inGravityField;
 	for each(Body* planet in solarSystem) {
@@ -107,80 +92,35 @@ void GameScene::ApplieGravity(float deltaTime) {
 				currentOrbidShip = inGravityField[i];
 			}
 		}
-
-		
-		Vector2 test = Vector2(Point(0, 0, 0), spaceship->position);
-		float angle = test.getAngle();
-		if (angle <= 0) { angle += 360 * DEG_TO_RAD; }
-
-		angle += (currentOrbidShip->GetOrbitingSpeed() * deltaTime);
-		float distance = sun->GetDistance(spaceship->position);
-		//spaceship->position.x = sun->position.x + sin(angle) * distance;
-		//spaceship->position.y = sun->position.y + cos(angle) * distance;
-
-		
-		//position.x = orbitingPlanetX + sin(angle) * (orbitingPlanet->GetRadius() + orbitingHeight);
-		//position.y = orbitingPlanetY + cos(angle) * (orbitingPlanet->GetRadius() + orbitingHeight);
-		//angle += (orbitingSpeed * slowDown) * deltaTime;
-
 		spaceship->AddForce(strongetsGravity);
-		/*
-		if (currentOrbidShip->GravitationalForce(spaceship).getLength() >= 0.5f) {
-			float slowDown = (0.8f / currentOrbidShip->GravitationalForce(spaceship).getLength()) - 1.6f;
-			if (slowDown > 1) { slowDown = 1; }
-			if (slowDown < 0) { slowDown = 0; }
-			SlowDownPlanets(slowDown);
-		}
-		*/
-		
-		//std::cout << strongetsGravity.getLength() << std::endl;
-		
 	} else {
 		spaceship->AddForce(sun->GravitationalForce(spaceship));
 		currentOrbidShip = NULL;
 	}
 }
-
+*/
 // diameter 1/150           distance 1/150.000
 void GameScene::SetupSolarSystem() {
-	sun = new Body("Sun", 400000.0f, 300.0f);
+	sun = new Body("Sun", 1988500e24 / 2000000000000, 300); // 1988500e24    1391400
 	addChild(sun);
 	solarSystem.push_back(sun);
-
-	mercury = new Body("Mercury", 30000.0f, 32.53f);
-	mercury->SetOrbid(sun, 386, 0.09, PI * 0.9);
+	
+	mercury = new Body("Mercury", 0.33011e24 / 200000000, 4879 / 100); // 0.33011e24    4879
+	mercury->SetOrbid(sun, 57.91e6 / 100000); // 57.91e6
 	solarSystem.push_back(mercury);
 
-	venus = new Body("venus", 45000.0f, 80.69f);
-	venus->SetOrbid(sun, 721.33, 0.08, PI * 0.5);
+	venus = new Body("venus", 4.8675e24 / 200000000, 12104 / 100); // 4.8675e24    12104
+	venus->SetOrbid(sun, 108.21e6 / 100000); // 108.21e6
 	solarSystem.push_back(venus);
-
-	earth = new Body("Earth", 60000.0f, 85.04f);
-	earth->SetOrbid(sun, 997.33, 0.07, PI * 1.2);
+	
+	earth = new Body("Earth", 5.97237e24 / 200000000, 12756 / 100); // 5.97237e24    12756
+	earth->SetOrbid(sun, 149.60e6 / 100000); // 149.60e6
 	solarSystem.push_back(earth);
-
-	mars = new Body("Mars", 36000.0f, 45.28f);
-	mars->SetOrbid(sun, 1519.33, 0.06, PI * 1.6);
+	
+	mars = new Body("Mars", 0.64171e24 / 200000000 , 6792 / 100); // 0.64171e24    6792
+	mars->SetOrbid(sun, 227.92e6 / 100000); // 227.92e6
 	solarSystem.push_back(mars);
-
-	/*
-	jupiter = new Body("Jupiter", 36000.0f, 45.28f);
-	mars->SetOrbid(sun, 1519.33, 0.06, PI * 1.6);
-	solarSystem.push_back(mars);
-
-	saturn = new Body("Saturn", 36000.0f, 45.28f);
-	mars->SetOrbid(sun, 1519.33, 0.06, PI * 1.6);
-	solarSystem.push_back(mars);
-
-	uranus = new Body("Uranus", 36000.0f, 45.28f);
-	mars->SetOrbid(sun, 1519.33, 0.06, PI * 1.6);
-	solarSystem.push_back(mars);
-
-	neptune = new Body("Neptune", 36000.0f, 45.28f);
-	mars->SetOrbid(sun, 1519.33, 0.06, PI * 1.6);
-	solarSystem.push_back(mars);
-	*/
-
+	
 	if (helpersEnabled) {
 		CreateHelpers();
 	}
@@ -202,11 +142,5 @@ void GameScene::CreateHelpers() {
 		helpers.push_back(helper);
 		addChild(helper);
 		delete circle;
-	}
-}
-
-void GameScene::SlowDownPlanets(float amount) {
-	for each(Body* planet in solarSystem) {
-		planet->SetSlowDown(amount);
 	}
 }
