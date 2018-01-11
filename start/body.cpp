@@ -15,6 +15,9 @@ Body::Body(std::string name, float mass, float diameter) : SpaceEntity() {
 	sprite()->size = Point(diameter, diameter);
 	orbitingPlanet = NULL;
 	stationOrbid = NULL;
+	stationOrbidHeight = 0;
+	lastResupplied = false;
+	stableOrbidTimer = 5;
 }
 
 Body::~Body() {
@@ -55,8 +58,9 @@ void Body::SetOrbid(Body* orbitingPlanet, float distance) {
 }
 
 void Body::SetStationOrbid(float height) {
+	stationOrbidHeight = height;
 	Line* circle = new Line();
-	circle->createCircle(height, 20);
+	circle->createCircle(height, 30);
 	stationOrbid = new BasicEntity();
 	stationOrbid->addLine(circle);
 	stationOrbid->line()->color = BLUE;
@@ -66,5 +70,23 @@ void Body::SetStationOrbid(float height) {
 
 float Body::GetDistance(Point3 otherPos) {
 	return sqrt(pow((position.x - otherPos.x), 2) + pow((position.y - otherPos.y), 2));
+}
+
+void Body::CheckStableOrbid(SpaceShip* ship, float deltaTime) {
+	if (!lastResupplied) {
+		float minHeight = stationOrbidHeight - 30;
+		float maxHeight = stationOrbidHeight + 30;
+		float distance = GetDistance(ship->position);
+		if (distance >= minHeight && distance <= maxHeight) {
+			stableOrbidTimer -= 1 * deltaTime;
+			std::cout << stableOrbidTimer << std::endl;
+			if (stableOrbidTimer <= 0) {
+				lastResupplied = true;
+				std::cout << "Resupplied" << std::endl;
+			}
+		} else {
+			stableOrbidTimer = 5;
+		}
+	}
 }
 
