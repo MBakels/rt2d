@@ -10,6 +10,7 @@
 #define PASSENGER_H
 
 #include <string>
+#include <vector>
 
 #include "body.h"
 
