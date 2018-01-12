@@ -29,13 +29,13 @@ void Body::update(float deltaTime) {
 }
 
 Vector2 Body::GravitationalForce(SpaceEntity* entity) {
-	double dx = position.x - entity->position.x;
-	double dy = position.y - entity->position.y;
-	double distSQ = dx * dx + dy * dy;
-	double dist = sqrt(distSQ);
-	double force = (gravityConstant * ((mass + entity->GetMass()) / (dist*dist)));
-	double ax = (force * dx) / dist;
-	double ay = (force * dy) / dist;
+	float dx = position.x - entity->position.x;
+	float dy = position.y - entity->position.y;
+	float distSQ = dx * dx + dy * dy;
+	float dist = sqrt(distSQ);
+	float force = (gravityConstant * ((mass + entity->GetMass()) / (dist*dist)));
+	float ax = (force * dx) / dist;
+	float ay = (force * dy) / dist;
 	Vector2 gravitationalForce = Vector2(ax, ay);
 
 	return gravitationalForce;
@@ -50,9 +50,9 @@ void Body::SetOrbid(Body* orbitingPlanet, float distance) {
 	this->position = orbitingPlanet->position;
 	this->position.x += distance;
 
-	double a = gravityConstant * (orbitingPlanet->GetMass() + mass);
-	double b = a / distance;
-	double vel = sqrt(b);
+	float a = gravityConstant * (orbitingPlanet->GetMass() + mass);
+	float b = a / distance;
+	float vel = sqrt(b);
 	SetVelocity(Vector2(0, vel));
 }
 
