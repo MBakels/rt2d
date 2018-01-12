@@ -13,6 +13,7 @@ GameScene::GameScene() : Scene(){
 	srand(time(NULL));
 
 	currentOrbidShip = NULL;
+	lastResuppliedPlanet = NULL;
 	helpersEnabled = true;
 
 	spaceship = new SpaceShip();
@@ -72,41 +73,22 @@ void GameScene::update(float deltaTime){
 		}
 		if (planet->GravitationalForce(spaceship).getLength() >= 10.0f && planet != sun) {
 			spaceship->AddForce(planet->GravitationalForce(spaceship) * deltaTime);
-			planet->CheckStableOrbid(spaceship, deltaTime);
+			if (planet != lastResuppliedPlanet) {
+				planet->CheckStableOrbid(spaceship, deltaTime);
+			}
 			//std::cout << planet->GetName() << "    " << planet->GravitationalForce(spaceship).getLength() << std::endl;
 		}
-		
 	}
 	spaceship->AddForce(sun->GravitationalForce(spaceship) * deltaTime);
 }
 
-void GameScene::ApplieGravity() {
-	std::vector<Body*> inGravityField;
-	for each(Body* planet in solarSystem) {
-		if (planet->GravitationalForce(spaceship).getLength() >= 0.3f && planet != sun) {
-			inGravityField.push_back(planet);
-		}
-	}
-
-	if (inGravityField.size() != 0) {
-		Vector2 strongetsGravity = inGravityField[0]->GravitationalForce(spaceship);
-		currentOrbidShip = inGravityField[0];
-		for (int i = 1; i < inGravityField.size(); i++) {
-			if (inGravityField[i]->GravitationalForce(spaceship) > strongetsGravity) {
-				strongetsGravity = inGravityField[i]->GravitationalForce(spaceship);
-				currentOrbidShip = inGravityField[i];
-			}
-		}
-		spaceship->AddForce(strongetsGravity);
-	} else {
-		spaceship->AddForce(sun->GravitationalForce(spaceship));
-		currentOrbidShip = NULL;
-	}
+void GameScene::SetLastResuppliedPlanet(Body* planet) {
+	lastResuppliedPlanet = planet;
 }
 
 void GameScene::SetupSolarSystem() {
 	sun = new Body("Sun", 1988500e24 / 2000000000000, 300); // 1988500e24    1391400
-	addChild(sun);
+	this->addChild(sun);
 	solarSystem.push_back(sun);
 	
 	mercury = new Body("Mercury", 0.33011e24 / 150000000, 4879 / 100); // 0.33011e24    4879
@@ -114,7 +96,7 @@ void GameScene::SetupSolarSystem() {
 	mercury->SetStationOrbid(100);
 	solarSystem.push_back(mercury);
 
-	venus = new Body("venus", 4.8675e24 / 150000000, 12104 / 100); // 4.8675e24    12104
+	venus = new Body("Venus", 4.8675e24 / 150000000, 12104 / 100); // 4.8675e24    12104
 	venus->SetOrbid(sun, 108.21e6 / 100000); // 108.21e6
 	venus->SetStationOrbid(100);
 	solarSystem.push_back(venus);
@@ -133,10 +115,10 @@ void GameScene::SetupSolarSystem() {
 		CreateHelpers();
 	}
 
-	addChild(mercury);
-	addChild(venus);
-	addChild(earth);
-	addChild(mars);
+	this->addChild(mercury);
+	this->addChild(venus);
+	this->addChild(earth);
+	this->addChild(mars);
 }
 
 void GameScene::CreateHelpers() {
@@ -148,7 +130,7 @@ void GameScene::CreateHelpers() {
 		helper->line()->color = GRAY;
 		helper->position = Point2(0, 0);
 		helpers.push_back(helper);
-		addChild(helper);
+		this->addChild(helper);
 		delete circle;
 	}
 }

@@ -16,17 +16,16 @@ Body::Body(std::string name, float mass, float diameter) : SpaceEntity() {
 	orbitingPlanet = NULL;
 	stationOrbid = NULL;
 	stationOrbidHeight = 0;
-	lastResupplied = false;
 	stableOrbidTimer = 5;
 }
 
 Body::~Body() {
-
+	removeChild(stationOrbid);
+	delete stationOrbid;
 }
 
 void Body::update(float deltaTime) {
 	this->position += this->velocity * deltaTime;
-	
 }
 
 Vector2 Body::GravitationalForce(SpaceEntity* entity) {
@@ -73,20 +72,19 @@ float Body::GetDistance(Point3 otherPos) {
 }
 
 void Body::CheckStableOrbid(SpaceShip* ship, float deltaTime) {
-	if (!lastResupplied) {
-		float minHeight = stationOrbidHeight - 30;
-		float maxHeight = stationOrbidHeight + 30;
-		float distance = GetDistance(ship->position);
-		if (distance >= minHeight && distance <= maxHeight) {
-			stableOrbidTimer -= 1 * deltaTime;
-			std::cout << stableOrbidTimer << std::endl;
-			if (stableOrbidTimer <= 0) {
-				lastResupplied = true;
-				std::cout << "Resupplied" << std::endl;
-			}
-		} else {
-			stableOrbidTimer = 5;
+	float minHeight = stationOrbidHeight - 30;
+	float maxHeight = stationOrbidHeight + 30;
+	float distance = GetDistance(ship->position);
+	if (distance >= minHeight && distance <= maxHeight) {
+		stableOrbidTimer -= 1 * deltaTime;
+		//std::cout << stableOrbidTimer << std::endl;
+		if (stableOrbidTimer <= 0) {
+			//this->parent
+			//std::cout << "parent:  " << this->parent << std::endl;
+			//std::cout << "Resupplied" << std::endl;
 		}
+	} else {
+		stableOrbidTimer = 1;
 	}
 }
 

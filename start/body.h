@@ -46,7 +46,6 @@ private:
 	Body* orbitingPlanet;
 	BasicEntity* stationOrbid;
 	float stationOrbidHeight;
-	bool lastResupplied;
 	float stableOrbidTimer;
 };
 

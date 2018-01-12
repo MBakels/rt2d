@@ -28,16 +28,13 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
-	void ApplieGravity();
-
-	void SetupSolarSystem();
-
-	void CreateHelpers();
+	virtual void SetLastResuppliedPlanet(Body* planet);
 
 private:
 	/// @brief the spaceship controlled by the player.
 	SpaceShip* spaceship;
 	Body* currentOrbidShip;
+	Body* lastResuppliedPlanet;
 	DirectionArrow* directionArrow;
 	std::vector<Body*> solarSystem;
 	std::vector<BasicEntity*> helpers;
@@ -51,6 +48,10 @@ private:
 	Body* saturn;
 	Body* uranus;
 	Body* neptune;
+
+	void SetupSolarSystem();
+
+	void CreateHelpers();
 };
 
 #endif /* GAMESCENE_H */
