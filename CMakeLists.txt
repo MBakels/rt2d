@@ -168,6 +168,8 @@ IF(MAKE_START)
 		start/directionarrow.h
 		start/basicentity.cpp
 		start/basicentity.h
+		start/passenger.cpp
+		start/passenger.h
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}
