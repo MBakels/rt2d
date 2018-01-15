@@ -37,7 +37,7 @@ public:
 
 	float GetDistance(Point3 otherPos);
 
-	void CheckStableOrbid(SpaceShip* ship, float deltaTime);
+	bool CheckStableOrbid(SpaceShip* ship, float deltaTime);
 
 private:
 	float gravityConstant;
@@ -47,6 +47,7 @@ private:
 	BasicEntity* stationOrbid;
 	float stationOrbidHeight;
 	float stableOrbidTimer;
+	int passengers;
 };
 
 #endif /* BODY_H */

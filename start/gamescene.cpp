@@ -74,16 +74,15 @@ void GameScene::update(float deltaTime){
 		if (planet->GravitationalForce(spaceship).getLength() >= 10.0f && planet != sun) {
 			spaceship->AddForce(planet->GravitationalForce(spaceship) * deltaTime);
 			if (planet != lastResuppliedPlanet) {
-				planet->CheckStableOrbid(spaceship, deltaTime);
+				bool stableOrbid = planet->CheckStableOrbid(spaceship, deltaTime);
+				if (stableOrbid) {
+					lastResuppliedPlanet = planet;
+				}
 			}
 			//std::cout << planet->GetName() << "    " << planet->GravitationalForce(spaceship).getLength() << std::endl;
 		}
 	}
 	spaceship->AddForce(sun->GravitationalForce(spaceship) * deltaTime);
-}
-
-void GameScene::SetLastResuppliedPlanet(Body* planet) {
-	lastResuppliedPlanet = planet;
 }
 
 void GameScene::SetupSolarSystem() {

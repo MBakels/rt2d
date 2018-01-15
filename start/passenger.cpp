@@ -7,7 +7,7 @@
 #include "passenger.h"
 
 Passenger::Passenger(Body* originPlanet) {
-	
+	SetRandomDestination(originPlanet);
 }
 
 Passenger::~Passenger() {

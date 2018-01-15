@@ -28,8 +28,6 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
-	virtual void SetLastResuppliedPlanet(Body* planet);
-
 private:
 	/// @brief the spaceship controlled by the player.
 	SpaceShip* spaceship;

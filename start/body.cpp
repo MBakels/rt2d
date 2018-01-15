@@ -17,6 +17,7 @@ Body::Body(std::string name, float mass, float diameter) : SpaceEntity() {
 	stationOrbid = NULL;
 	stationOrbidHeight = 0;
 	stableOrbidTimer = 5;
+	passengers = (rand() % 5) + 2;
 }
 
 Body::~Body() {
@@ -71,20 +72,20 @@ float Body::GetDistance(Point3 otherPos) {
 	return sqrt(pow((position.x - otherPos.x), 2) + pow((position.y - otherPos.y), 2));
 }
 
-void Body::CheckStableOrbid(SpaceShip* ship, float deltaTime) {
+bool Body::CheckStableOrbid(SpaceShip* ship, float deltaTime) {
 	float minHeight = stationOrbidHeight - 30;
 	float maxHeight = stationOrbidHeight + 30;
 	float distance = GetDistance(ship->position);
 	if (distance >= minHeight && distance <= maxHeight) {
 		stableOrbidTimer -= 1 * deltaTime;
-		//std::cout << stableOrbidTimer << std::endl;
+		std::cout << stableOrbidTimer << std::endl;
 		if (stableOrbidTimer <= 0) {
-			//this->parent
-			//std::cout << "parent:  " << this->parent << std::endl;
-			//std::cout << "Resupplied" << std::endl;
+			std::cout << "Resupplied" << std::endl;
+			return true;
 		}
 	} else {
-		stableOrbidTimer = 1;
+		stableOrbidTimer = 5;
 	}
+	return false;
 }
 
