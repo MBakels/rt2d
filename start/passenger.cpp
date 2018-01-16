@@ -6,18 +6,18 @@
 
 #include "passenger.h"
 
-Passenger::Passenger(Body* originPlanet) {
-	SetRandomDestination(originPlanet);
+Passenger::Passenger(std::string originPlanetName) {
+	SetRandomDestination(originPlanetName);
 }
 
 Passenger::~Passenger() {
 
 }
 
-void Passenger::SetRandomDestination(Body* originPlanet) {
+void Passenger::SetRandomDestination(std::string originPlanetName) {
 	std::string planetList[] = {"Mercury", "Venus", "Earth", "Mars"};
 	do {
 		int randomNumber = rand() % planetList->length();
 		destination = planetList[randomNumber];
-	} while (destination == originPlanet->GetName());
+	} while (destination == originPlanetName);
 }

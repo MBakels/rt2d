@@ -57,6 +57,12 @@ void GameScene::update(float deltaTime){
 	if (input()->getKeyUp(KeyCode::Escape)) {
 		this->stop();
 	}
+	// ###############################################################
+	// Debug key
+	// ###############################################################
+	if (input()->getKeyUp(KeyCode::I)) {
+		//std::cout << spaceship->GetPassengerAmount() << std::endl;
+	}
 
 	camera()->position.x = spaceship->position.x;
 	camera()->position.y = spaceship->position.y;

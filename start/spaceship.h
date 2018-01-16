@@ -10,6 +10,7 @@
 #define SPACESHIP_H
 
 #include "spaceentity.h"
+#include "passenger.h"
 
 /// @brief The SpaceShip class handels the spaceship movement and keeps a list of passengers.
 class SpaceShip : public SpaceEntity{
@@ -24,9 +25,15 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
+	void AddPassengers(int numberOfPassengers, std::string originPlanetName);
+
+	int GetPassengerAmount() { return passengers.size(); };
+
 private:
 	float rotationSpeed;
 	Polar polar;
+	std::vector<Passenger*> passengers;
+	int maxPassengers;
 };
 
 #endif /* SPACESHIP_H */

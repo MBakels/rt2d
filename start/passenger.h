@@ -12,13 +12,11 @@
 #include <string>
 #include <vector>
 
-#include "body.h"
-
 /// @brief The SpaceShip class handels the spaceship movement and keeps a list of passengers.
 class Passenger {
 public:
 	/// @brief Constructor
-	Passenger(Body* originPlanet);
+	Passenger(std::string originPlanetName);
 	/// @brief Destructor
 	virtual ~Passenger();
 
@@ -27,7 +25,7 @@ private:
 
 	std::string GetDestination() { return destination; };
 
-	void SetRandomDestination(Body* originPlanet);
+	void SetRandomDestination(std::string originPlanetName);
 };
 
 #endif /* PASSENGER_H */
