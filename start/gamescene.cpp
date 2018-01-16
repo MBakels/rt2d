@@ -61,7 +61,7 @@ void GameScene::update(float deltaTime){
 	// Debug key
 	// ###############################################################
 	if (input()->getKeyUp(KeyCode::I)) {
-		//std::cout << spaceship->GetPassengerAmount() << std::endl;
+		std::cout << spaceship->GetPassengerAmount() << std::endl;
 	}
 
 	camera()->position.x = spaceship->position.x;
@@ -80,7 +80,7 @@ void GameScene::update(float deltaTime){
 		if (planet->GravitationalForce(spaceship).getLength() >= 10.0f && planet != sun) {
 			spaceship->AddForce(planet->GravitationalForce(spaceship) * deltaTime);
 			if (planet != lastResuppliedPlanet) {
-				bool stableOrbid = planet->CheckStableOrbid(spaceship, deltaTime);
+				bool stableOrbid = planet->CheckStableOrbid(spaceship->position, deltaTime);
 				if (stableOrbid) {
 					lastResuppliedPlanet = planet;
 				}
@@ -97,22 +97,22 @@ void GameScene::SetupSolarSystem() {
 	solarSystem.push_back(sun);
 	
 	mercury = new Body("Mercury", 0.33011e24 / 150000000, 4879 / 100); // 0.33011e24    4879
-	mercury->SetOrbid(sun, 57.91e6 / 100000); // 57.91e6
+	mercury->SetOrbid(sun->position, sun->GetMass(), 57.91e6 / 100000); // 57.91e6
 	mercury->SetStationOrbid(100);
 	solarSystem.push_back(mercury);
 
 	venus = new Body("Venus", 4.8675e24 / 150000000, 12104 / 100); // 4.8675e24    12104
-	venus->SetOrbid(sun, 108.21e6 / 100000); // 108.21e6
+	venus->SetOrbid(sun->position, sun->GetMass(), 108.21e6 / 100000); // 108.21e6
 	venus->SetStationOrbid(100);
 	solarSystem.push_back(venus);
 	
 	earth = new Body("Earth", 5.97237e24 / 150000000, 12756 / 100); // 5.97237e24    12756
-	earth->SetOrbid(sun, 149.60e6 / 100000); // 149.60e6
+	earth->SetOrbid(sun->position, sun->GetMass(), 149.60e6 / 100000); // 149.60e6
 	earth->SetStationOrbid(100);
 	solarSystem.push_back(earth);
 	
 	mars = new Body("Mars", 0.64171e24 / 150000000, 6792 / 100); // 0.64171e24    6792
-	mars->SetOrbid(sun, 227.92e6 / 100000); // 227.92e6
+	mars->SetOrbid(sun->position, sun->GetMass(), 227.92e6 / 100000); // 227.92e6
 	mars->SetStationOrbid(100);
 	solarSystem.push_back(mars);
 	

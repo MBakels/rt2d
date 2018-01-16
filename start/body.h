@@ -10,7 +10,6 @@
 #define BODY_H
 
 #include "spaceentity.h"
-#include "spaceship.h"
 
 /// @brief The SpaceShip class handels the spaceship movement and keeps a list of passengers.
 class Body : public SpaceEntity {
@@ -29,7 +28,7 @@ public:
 
 	float GetDiameter();
 
-	void SetOrbid(Body* orbitingPlanet, float distance);
+	void SetOrbid(Point3 orbitingPlanetPosition, float orbitingPlanetMass, float distance);
 
 	std::string GetName() { return name; };
 
@@ -37,7 +36,7 @@ public:
 
 	float GetDistance(Point3 otherPos);
 
-	bool CheckStableOrbid(SpaceShip* ship, float deltaTime);
+	bool CheckStableOrbid(Point3 shipPosition, float deltaTime);
 
 private:
 	float gravityConstant;

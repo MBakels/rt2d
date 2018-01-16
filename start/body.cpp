@@ -13,7 +13,6 @@ Body::Body(std::string name, float mass, float diameter) : SpaceEntity() {
 	this->diameter = diameter;
 	addSprite("assets/planet.tga");
 	sprite()->size = Point(diameter, diameter);
-	orbitingPlanet = NULL;
 	stationOrbid = NULL;
 	stationOrbidHeight = 0;
 	stableOrbidTimer = 5;
@@ -46,12 +45,11 @@ float Body::GetDiameter() {
 	return diameter;
 }
 
-void Body::SetOrbid(Body* orbitingPlanet, float distance) {
-	this->orbitingPlanet = orbitingPlanet;
-	this->position = orbitingPlanet->position;
+void Body::SetOrbid(Point3 orbitingPlanetPosition, float orbitingPlanetMass, float distance) {
+	this->position = orbitingPlanetPosition;
 	this->position.x += distance;
 
-	float a = gravityConstant * (orbitingPlanet->GetMass() + mass);
+	float a = gravityConstant * (orbitingPlanetMass + mass);
 	float b = a / distance;
 	float vel = sqrt(b);
 	SetVelocity(Vector2(0, vel));
@@ -72,10 +70,10 @@ float Body::GetDistance(Point3 otherPos) {
 	return sqrt(pow((position.x - otherPos.x), 2) + pow((position.y - otherPos.y), 2));
 }
 
-bool Body::CheckStableOrbid(SpaceShip* ship, float deltaTime) {
+bool Body::CheckStableOrbid(Point3 shipPosition, float deltaTime) {
 	float minHeight = stationOrbidHeight - 30;
 	float maxHeight = stationOrbidHeight + 30;
-	float distance = GetDistance(ship->position);
+	float distance = GetDistance(shipPosition);
 	if (distance >= minHeight && distance <= maxHeight) {
 		stableOrbidTimer -= 1 * deltaTime;
 		std::cout << stableOrbidTimer << std::endl;
