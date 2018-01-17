@@ -82,7 +82,7 @@ bool Body::CheckStableOrbid(Point3 shipPosition, float deltaTime) {
 			return true;
 		}
 	} else {
-		stableOrbidTimer = 5;
+		stableOrbidTimer = 1;
 	}
 	return false;
 }

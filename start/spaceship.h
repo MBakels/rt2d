@@ -25,7 +25,9 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
-	void AddPassengers(int numberOfPassengers, std::string originPlanetName);
+	void embarking(int numberOfPassengers, std::string originPlanetName);
+
+	void disembarking(std::string planetName);
 
 	int GetPassengerAmount() { return passengers.size(); };
 

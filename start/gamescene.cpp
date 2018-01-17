@@ -41,6 +41,7 @@ GameScene::~GameScene(){
 		delete (*solarSystemIt);
 		solarSystemIt++;
 	}
+	solarSystem.clear();
 
 	std::vector<BasicEntity*>::iterator helpersIt = helpers.begin();
 	while (helpersIt != helpers.end()) {
@@ -48,6 +49,7 @@ GameScene::~GameScene(){
 		delete (*helpersIt);
 		helpersIt++;
 	}
+	helpers.clear();
 }
 
 void GameScene::update(float deltaTime){
@@ -142,6 +144,8 @@ void GameScene::CreateHelpers() {
 }
 
 void GameScene::Resupply() {
+	spaceship->disembarking(lastResuppliedPlanet->GetName());
+
 	int passengersOnCurrentPlanet = lastResuppliedPlanet->GetPassengersWaiting();
 	int shipCurrentPassengers = spaceship->GetPassengerAmount();
 	int shipMaxPassengers = spaceship->GetMaxPassengers();
@@ -149,10 +153,10 @@ void GameScene::Resupply() {
 		int freeSpace = shipMaxPassengers - shipCurrentPassengers;
 		if (passengersOnCurrentPlanet >= freeSpace) {
 			lastResuppliedPlanet->SetPassengersWaiting(lastResuppliedPlanet->GetPassengersWaiting() - freeSpace);
-			spaceship->AddPassengers(freeSpace, lastResuppliedPlanet->GetName());
+			spaceship->embarking(freeSpace, lastResuppliedPlanet->GetName());
 		} else {
 			lastResuppliedPlanet->SetPassengersWaiting(0);
-			spaceship->AddPassengers(passengersOnCurrentPlanet, lastResuppliedPlanet->GetName());
+			spaceship->embarking(passengersOnCurrentPlanet, lastResuppliedPlanet->GetName());
 		}
 	}
 }

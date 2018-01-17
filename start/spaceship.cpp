@@ -14,13 +14,12 @@ SpaceShip::SpaceShip() : SpaceEntity(){
 	polar = Polar((rand() % 360) * DEG_TO_RAD, 200.0f);
 	mass = 1000.0f;
 	maxPassengers = 30;
-	AddPassengers(5, "Mars");
 }
 
 SpaceShip::~SpaceShip(){
 	std::vector<Passenger*>::iterator passengersIt = passengers.begin();
 	while (passengersIt != passengers.end()) {
-		delete (*passengersIt);
+		//delete (*passengersIt);
 		passengersIt++;
 	}
 }
@@ -43,9 +42,21 @@ void SpaceShip::update(float deltaTime){
 	position += velocity * deltaTime;
 }
 
-void SpaceShip::AddPassengers(int numberOfPassengers, std::string originPlanetName) {
+void SpaceShip::embarking(int numberOfPassengers, std::string originPlanetName) {
 	for (int i = 0; i < numberOfPassengers; i++) {
 		passengers.push_back(new Passenger(originPlanetName));
 	}
 }
 
+void SpaceShip::disembarking(std::string planetName) {
+	std::cout << "disembarking" << std::endl;
+	std::vector<Passenger*>::iterator PassengersIt = passengers.begin();
+	while (PassengersIt != passengers.end()) {
+		if ((*PassengersIt)->GetDestination() == planetName) {
+			delete (*PassengersIt);
+			PassengersIt = passengers.erase(PassengersIt);
+		} else {
+			PassengersIt++;
+		}		
+	}
+}
