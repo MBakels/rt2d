@@ -15,9 +15,9 @@ Passenger::~Passenger() {
 }
 
 void Passenger::SetRandomDestination(std::string originPlanetName) {
-	std::string planetList[] = {"Mercury", "Venus", "Earth", "Mars"};
+	std::vector<std::string> planetList = {"Mercury", "Venus", "Earth", "Mars"};
 	do {
-		int randomNumber = rand() % planetList->length();
+		int randomNumber = rand() % planetList.size();
 		destination = planetList[randomNumber];
 	} while (destination == originPlanetName);
 }

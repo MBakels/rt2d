@@ -38,6 +38,10 @@ public:
 
 	bool CheckStableOrbid(Point3 shipPosition, float deltaTime);
 
+	float GetPassengersWaiting() { return passengersWaiting; };
+
+	void SetPassengersWaiting(int newValue) { passengersWaiting = newValue; };
+
 private:
 	float gravityConstant;
 	std::string name;
@@ -46,7 +50,7 @@ private:
 	BasicEntity* stationOrbid;
 	float stationOrbidHeight;
 	float stableOrbidTimer;
-	int passengers;
+	int passengersWaiting;
 };
 
 #endif /* BODY_H */

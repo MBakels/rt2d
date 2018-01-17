@@ -50,6 +50,8 @@ private:
 	void SetupSolarSystem();
 
 	void CreateHelpers();
+
+	void Resupply();
 };
 
 #endif /* GAMESCENE_H */

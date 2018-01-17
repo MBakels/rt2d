@@ -83,6 +83,7 @@ void GameScene::update(float deltaTime){
 				bool stableOrbid = planet->CheckStableOrbid(spaceship->position, deltaTime);
 				if (stableOrbid) {
 					lastResuppliedPlanet = planet;
+					Resupply();
 				}
 			}
 			//std::cout << planet->GetName() << "    " << planet->GravitationalForce(spaceship).getLength() << std::endl;
@@ -137,5 +138,21 @@ void GameScene::CreateHelpers() {
 		helpers.push_back(helper);
 		this->addChild(helper);
 		delete circle;
+	}
+}
+
+void GameScene::Resupply() {
+	int passengersOnCurrentPlanet = lastResuppliedPlanet->GetPassengersWaiting();
+	int shipCurrentPassengers = spaceship->GetPassengerAmount();
+	int shipMaxPassengers = spaceship->GetMaxPassengers();
+	if (shipCurrentPassengers < shipMaxPassengers) {
+		int freeSpace = shipMaxPassengers - shipCurrentPassengers;
+		if (passengersOnCurrentPlanet >= freeSpace) {
+			lastResuppliedPlanet->SetPassengersWaiting(lastResuppliedPlanet->GetPassengersWaiting() - freeSpace);
+			spaceship->AddPassengers(freeSpace, lastResuppliedPlanet->GetName());
+		} else {
+			lastResuppliedPlanet->SetPassengersWaiting(0);
+			spaceship->AddPassengers(passengersOnCurrentPlanet, lastResuppliedPlanet->GetName());
+		}
 	}
 }

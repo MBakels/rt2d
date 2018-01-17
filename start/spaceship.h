@@ -29,6 +29,8 @@ public:
 
 	int GetPassengerAmount() { return passengers.size(); };
 
+	int GetMaxPassengers() { return maxPassengers; };
+
 private:
 	float rotationSpeed;
 	Polar polar;

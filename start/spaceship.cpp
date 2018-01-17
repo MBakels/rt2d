@@ -14,6 +14,7 @@ SpaceShip::SpaceShip() : SpaceEntity(){
 	polar = Polar((rand() % 360) * DEG_TO_RAD, 200.0f);
 	mass = 1000.0f;
 	maxPassengers = 30;
+	AddPassengers(5, "Mars");
 }
 
 SpaceShip::~SpaceShip(){
@@ -43,7 +44,7 @@ void SpaceShip::update(float deltaTime){
 }
 
 void SpaceShip::AddPassengers(int numberOfPassengers, std::string originPlanetName) {
-	for (int i = 0; i < maxPassengers; i++) {
+	for (int i = 0; i < numberOfPassengers; i++) {
 		passengers.push_back(new Passenger(originPlanetName));
 	}
 }

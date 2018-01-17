@@ -9,6 +9,10 @@
 #ifndef PASSENGER_H
 #define PASSENGER_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+
 #include <string>
 #include <vector>
 
@@ -20,10 +24,10 @@ public:
 	/// @brief Destructor
 	virtual ~Passenger();
 
+	std::string GetDestination() { return destination; };
+
 private:
 	std::string destination;
-
-	std::string GetDestination() { return destination; };
 
 	void SetRandomDestination(std::string originPlanetName);
 };

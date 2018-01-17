@@ -16,7 +16,7 @@ Body::Body(std::string name, float mass, float diameter) : SpaceEntity() {
 	stationOrbid = NULL;
 	stationOrbidHeight = 0;
 	stableOrbidTimer = 5;
-	passengers = (rand() % 5) + 2;
+	passengersWaiting = (rand() % 5) + 2;
 }
 
 Body::~Body() {
