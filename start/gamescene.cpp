@@ -175,5 +175,9 @@ void GameScene::UpdateUI() {
 	directionArrow->position = directionArrow_pos;
 
 	scoreText->position = Point2(cam_pos.x + 50 - SWIDTH / 2, cam_pos.y + 50 - SHEIGHT / 2);
+}
+
+void GameScene::AddScore(int toAdd) {
+	score += toAdd;
 	scoreText->message("Score:" + std::to_string(score));
 }

@@ -60,7 +60,7 @@ private:
 
 	void UpdateUI();
 
-	void AddScore(int toAdd) { score += toAdd; };
+	void AddScore(int toAdd);
 };
 
 #endif /* GAMESCENE_H */
