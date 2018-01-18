@@ -49,6 +49,7 @@ private:
 	Body* neptune;
 	Text* scoreText;
 	int score;
+	Text* passengersCounterText;
 
 	void SetupSolarSystem();
 
@@ -61,6 +62,8 @@ private:
 	void UpdateUI();
 
 	void AddScore(int toAdd);
+
+	void UpdatePassengersText();
 };
 
 #endif /* GAMESCENE_H */

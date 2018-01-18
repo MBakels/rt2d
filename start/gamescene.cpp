@@ -158,6 +158,7 @@ void GameScene::Resupply() {
 			spaceship->embarking(passengersOnCurrentPlanet, lastResuppliedPlanet->GetName());
 		}
 	}
+	UpdatePassengersText();
 }
 
 void GameScene::CreateUI() {
@@ -165,8 +166,14 @@ void GameScene::CreateUI() {
 	addChild(directionArrow);
 
 	scoreText = new Text();
+	scoreText->scale = Point2(0.5f, 0.5f);
 	this->addChild(scoreText);
 	scoreText->message("Score: 0");
+
+	passengersCounterText = new Text();
+	passengersCounterText->scale = Point2(0.5f, 0.5f);
+	this->addChild(passengersCounterText);
+	passengersCounterText->message("0 Passengers");
 }
 
 void GameScene::UpdateUI() {
@@ -176,9 +183,14 @@ void GameScene::UpdateUI() {
 	directionArrow->position = directionArrow_pos;
 
 	scoreText->position = Point2(cam_pos.x + 50 - SWIDTH / 2, cam_pos.y + 50 - SHEIGHT / 2);
+	passengersCounterText->position = Point2(cam_pos.x + 50 - SWIDTH / 2, cam_pos.y + 80 - SHEIGHT / 2);
 }
 
 void GameScene::AddScore(int toAdd) {
 	score += toAdd;
 	scoreText->message("Score:" + std::to_string(score));
+}
+
+void GameScene::UpdatePassengersText() {
+	passengersCounterText->message(std::to_string(spaceship->GetPassengerAmount()) + " Passengers");
 }
