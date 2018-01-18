@@ -27,7 +27,7 @@ public:
 
 	void embarking(int numberOfPassengers, std::string originPlanetName);
 
-	void disembarking(std::string planetName);
+	int disembarking(std::string planetName);
 
 	int GetPassengerAmount() { return passengers.size(); };
 

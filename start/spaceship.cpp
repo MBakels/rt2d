@@ -48,15 +48,17 @@ void SpaceShip::embarking(int numberOfPassengers, std::string originPlanetName) 
 	}
 }
 
-void SpaceShip::disembarking(std::string planetName) {
-	std::cout << "disembarking" << std::endl;
+int SpaceShip::disembarking(std::string planetName) {
+	int scoreToAdd = 0;
 	std::vector<Passenger*>::iterator PassengersIt = passengers.begin();
 	while (PassengersIt != passengers.end()) {
 		if ((*PassengersIt)->GetDestination() == planetName) {
 			delete (*PassengersIt);
 			PassengersIt = passengers.erase(PassengersIt);
+			scoreToAdd++;
 		} else {
 			PassengersIt++;
 		}		
 	}
+	return scoreToAdd;
 }

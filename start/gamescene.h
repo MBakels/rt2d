@@ -10,6 +10,7 @@
 #define GAMESCENE_H
 
 #include <rt2d/scene.h>
+#include <rt2d/text.h>
 
 #include "spaceship.h"
 #include "body.h"
@@ -46,12 +47,20 @@ private:
 	Body* saturn;
 	Body* uranus;
 	Body* neptune;
+	Text* scoreText;
+	int score;
 
 	void SetupSolarSystem();
 
 	void CreateHelpers();
 
 	void Resupply();
+
+	void CreateUI();
+
+	void UpdateUI();
+
+	void AddScore(int toAdd) { score += toAdd; };
 };
 
 #endif /* GAMESCENE_H */

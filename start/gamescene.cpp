@@ -15,6 +15,7 @@ GameScene::GameScene() : Scene(){
 	currentOrbidShip = NULL;
 	lastResuppliedPlanet = NULL;
 	helpersEnabled = true;
+	score = 0;
 
 	spaceship = new SpaceShip();
 	spaceship->position = Point2(800, 0);
@@ -23,8 +24,7 @@ GameScene::GameScene() : Scene(){
 
 	SetupSolarSystem();
 
-	directionArrow = new DirectionArrow(sun);
-	addChild(directionArrow);
+	CreateUI();
 }
 
 
@@ -66,14 +66,6 @@ void GameScene::update(float deltaTime){
 		std::cout << spaceship->GetPassengerAmount() << std::endl;
 	}
 
-	camera()->position.x = spaceship->position.x;
-	camera()->position.y = spaceship->position.y;
-	
-	Point2 cam_pos = Point2(camera()->position.x, camera()->position.y);
-
-	Point2 directionArrow_pos = Point2(cam_pos.x, cam_pos.y - 50 + SHEIGHT / 2);
-	directionArrow->position = directionArrow_pos;
-	
 	for each(Body* planet in solarSystem) {
 		if (planet != sun) {
 			planet->AddForce((sun->GravitationalForce(planet) * deltaTime));
@@ -92,6 +84,11 @@ void GameScene::update(float deltaTime){
 		}
 	}
 	spaceship->AddForce(sun->GravitationalForce(spaceship) * deltaTime);
+
+	camera()->position.x = spaceship->position.x;
+	camera()->position.y = spaceship->position.y;
+
+	UpdateUI();
 }
 
 void GameScene::SetupSolarSystem() {
@@ -144,7 +141,8 @@ void GameScene::CreateHelpers() {
 }
 
 void GameScene::Resupply() {
-	spaceship->disembarking(lastResuppliedPlanet->GetName());
+	int scoreToAdd = spaceship->disembarking(lastResuppliedPlanet->GetName());
+	AddScore(scoreToAdd);
 
 	int passengersOnCurrentPlanet = lastResuppliedPlanet->GetPassengersWaiting();
 	int shipCurrentPassengers = spaceship->GetPassengerAmount();
@@ -159,4 +157,23 @@ void GameScene::Resupply() {
 			spaceship->embarking(passengersOnCurrentPlanet, lastResuppliedPlanet->GetName());
 		}
 	}
+}
+
+void GameScene::CreateUI() {
+	directionArrow = new DirectionArrow(sun);
+	addChild(directionArrow);
+
+	scoreText = new Text();
+	this->addChild(scoreText);
+	scoreText->message("Score: 0");
+}
+
+void GameScene::UpdateUI() {
+	Point2 cam_pos = Point2(camera()->position.x, camera()->position.y);
+
+	Point2 directionArrow_pos = Point2(cam_pos.x, cam_pos.y - 50 + SHEIGHT / 2);
+	directionArrow->position = directionArrow_pos;
+
+	scoreText->position = Point2(cam_pos.x + 50 - SWIDTH / 2, cam_pos.y + 50 - SHEIGHT / 2);
+	scoreText->message("Score:" + std::to_string(score));
 }
