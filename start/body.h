@@ -15,7 +15,7 @@
 class Body : public SpaceEntity {
 public:
 	/// @brief Constructor
-	Body(std::string name, float mass, float diameter);
+	Body(std::string name, float mass, float diameter, int scoreValue);
 	/// @brief Destructor
 	virtual ~Body();
 
@@ -42,6 +42,8 @@ public:
 
 	void SetPassengersWaiting(int newValue) { passengersWaiting = newValue; };
 
+	int GetScoreValue() { return scoreValue; };
+
 private:
 	float gravityConstant;
 	std::string name;
@@ -51,6 +53,7 @@ private:
 	float stationOrbidHeight;
 	float stableOrbidTimer;
 	int passengersWaiting;
+	int scoreValue;
 };
 
 #endif /* BODY_H */

@@ -6,7 +6,7 @@
 
 #include "body.h"
 
-Body::Body(std::string name, float mass, float diameter) : SpaceEntity() {
+Body::Body(std::string name, float mass, float diameter, int scoreValue) : SpaceEntity() {
 	gravityConstant = 6.6742e-11;
 	this->name = name;
 	this->mass = mass;
@@ -17,6 +17,7 @@ Body::Body(std::string name, float mass, float diameter) : SpaceEntity() {
 	stationOrbidHeight = 0;
 	stableOrbidTimer = 5;
 	passengersWaiting = (rand() % 5) + 2;
+	this->scoreValue = scoreValue;
 }
 
 Body::~Body() {

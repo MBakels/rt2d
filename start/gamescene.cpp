@@ -92,26 +92,26 @@ void GameScene::update(float deltaTime){
 }
 
 void GameScene::SetupSolarSystem() {
-	sun = new Body("Sun", 1988500e24 / 2000000000000, 300); // 1988500e24    1391400
+	sun = new Body("Sun", 1988500e24 / 2000000000000, 300, 0); // 1988500e24    1391400
 	this->addChild(sun);
 	solarSystem.push_back(sun);
 	
-	mercury = new Body("Mercury", 0.33011e24 / 150000000, 4879 / 100); // 0.33011e24    4879
+	mercury = new Body("Mercury", 0.33011e24 / 150000000, 4879 / 100, 1); // 0.33011e24    4879
 	mercury->SetOrbid(sun->position, sun->GetMass(), 57.91e6 / 100000); // 57.91e6
 	mercury->SetStationOrbid(100);
 	solarSystem.push_back(mercury);
 
-	venus = new Body("Venus", 4.8675e24 / 150000000, 12104 / 100); // 4.8675e24    12104
+	venus = new Body("Venus", 4.8675e24 / 150000000, 12104 / 100, 2); // 4.8675e24    12104
 	venus->SetOrbid(sun->position, sun->GetMass(), 108.21e6 / 100000); // 108.21e6
 	venus->SetStationOrbid(100);
 	solarSystem.push_back(venus);
 	
-	earth = new Body("Earth", 5.97237e24 / 150000000, 12756 / 100); // 5.97237e24    12756
+	earth = new Body("Earth", 5.97237e24 / 150000000, 12756 / 100, 3); // 5.97237e24    12756
 	earth->SetOrbid(sun->position, sun->GetMass(), 149.60e6 / 100000); // 149.60e6
 	earth->SetStationOrbid(100);
 	solarSystem.push_back(earth);
 	
-	mars = new Body("Mars", 0.64171e24 / 150000000, 6792 / 100); // 0.64171e24    6792
+	mars = new Body("Mars", 0.64171e24 / 150000000, 6792 / 100, 4); // 0.64171e24    6792
 	mars->SetOrbid(sun->position, sun->GetMass(), 227.92e6 / 100000); // 227.92e6
 	mars->SetStationOrbid(100);
 	solarSystem.push_back(mars);
@@ -141,7 +141,8 @@ void GameScene::CreateHelpers() {
 }
 
 void GameScene::Resupply() {
-	int scoreToAdd = spaceship->disembarking(lastResuppliedPlanet->GetName());
+	int disembarkingPassengers = spaceship->disembarking(lastResuppliedPlanet->GetName());
+	int scoreToAdd = disembarkingPassengers * lastResuppliedPlanet->GetScoreValue();
 	AddScore(scoreToAdd);
 
 	int passengersOnCurrentPlanet = lastResuppliedPlanet->GetPassengersWaiting();
