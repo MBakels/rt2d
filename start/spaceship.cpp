@@ -11,7 +11,7 @@ SpaceShip::SpaceShip() : SpaceEntity(){
 	sprite()->size = Point(30, 30);
 	rotationSpeed = 3.14f;
 	velocity = Vector2(0, 0);
-	polar = Polar((rand() % 360) * DEG_TO_RAD, 200.0f);
+	polar = Polar((rand() % 360) * DEG_TO_RAD, 0);
 	mass = 1000.0f;
 	maxPassengers = 30;
 }
@@ -37,6 +37,15 @@ void SpaceShip::update(float deltaTime){
 	if (input()->getKey(KeyCode::D)) {
 		polar.angle += rotationSpeed * deltaTime;
 	}
+	if (input()->getKey(KeyCode::LeftShift)) {
+		polar.radius += 20 * deltaTime;
+	}
+	if (input()->getKey(KeyCode::LeftControl)) {
+		polar.radius -= 20 * deltaTime;
+	}
+
+	if (polar.radius < 0) { polar.radius = 0; };
+	if (polar.radius > 100) { polar.radius = 100; };
 
 	rotation.z = polar.angle;
 	position += velocity * deltaTime;

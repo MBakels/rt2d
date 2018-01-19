@@ -77,7 +77,7 @@ bool Body::CheckStableOrbid(Point3 shipPosition, float deltaTime) {
 	float distance = GetDistance(shipPosition);
 	if (distance >= minHeight && distance <= maxHeight) {
 		stableOrbidTimer -= 1 * deltaTime;
-		std::cout << stableOrbidTimer << std::endl;
+		//std::cout << stableOrbidTimer << std::endl;
 		if (stableOrbidTimer <= 0) {
 			std::cout << "Resupplied" << std::endl;
 			return true;

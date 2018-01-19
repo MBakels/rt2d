@@ -33,6 +33,8 @@ public:
 
 	int GetMaxPassengers() { return maxPassengers; };
 
+	int GetThrustPower() { return polar.radius; };
+
 private:
 	float rotationSpeed;
 	Polar polar;

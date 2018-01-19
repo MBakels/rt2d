@@ -174,6 +174,11 @@ void GameScene::CreateUI() {
 	passengersCounterText->scale = Point2(0.5f, 0.5f);
 	this->addChild(passengersCounterText);
 	passengersCounterText->message("0 Passengers");
+
+	shipThrustPowerText = new Text();
+	shipThrustPowerText->scale = Point2(0.5f, 0.5f);
+	this->addChild(shipThrustPowerText);
+	shipThrustPowerText->message("ThrustPower: 0");
 }
 
 void GameScene::UpdateUI() {
@@ -184,6 +189,9 @@ void GameScene::UpdateUI() {
 
 	scoreText->position = Point2(cam_pos.x + 50 - SWIDTH / 2, cam_pos.y + 50 - SHEIGHT / 2);
 	passengersCounterText->position = Point2(cam_pos.x + 50 - SWIDTH / 2, cam_pos.y + 80 - SHEIGHT / 2);
+	shipThrustPowerText->position = Point2(cam_pos.x + 50 - SWIDTH / 2, cam_pos.y + 110 - SHEIGHT / 2);
+
+	shipThrustPowerText->message("ThrustPower: " + std::to_string(spaceship->GetThrustPower()));
 }
 
 void GameScene::AddScore(int toAdd) {

@@ -50,6 +50,7 @@ private:
 	Text* scoreText;
 	int score;
 	Text* passengersCounterText;
+	Text* shipThrustPowerText;
 
 	void SetupSolarSystem();
 
