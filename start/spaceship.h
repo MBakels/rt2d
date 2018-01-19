@@ -35,6 +35,8 @@ public:
 
 	int GetThrustPower() { return polar.radius; };
 
+	float GetRadius() { return (sprite()->size.x / 2); };
+
 private:
 	float rotationSpeed;
 	Polar polar;

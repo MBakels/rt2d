@@ -88,3 +88,12 @@ bool Body::CheckStableOrbid(Point3 shipPosition, float deltaTime) {
 	return false;
 }
 
+bool Body::CheckCollision(Point3 otherPosition, float otherRadius) {
+	float distance = GetDistance(otherPosition);
+	float radius = diameter / 2;
+	if (distance < radius + otherRadius) {
+		return true;
+	}
+	return false;
+}
+

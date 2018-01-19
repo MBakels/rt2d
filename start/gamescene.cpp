@@ -88,6 +88,12 @@ void GameScene::update(float deltaTime){
 	camera()->position.x = spaceship->position.x;
 	camera()->position.y = spaceship->position.y;
 
+	for each(Body* planet in solarSystem) {
+		if (planet->CheckCollision(spaceship->position, spaceship->GetRadius())) {
+			std::cout << "collision with: " << planet->GetName() << std::endl;
+		}
+	}
+
 	UpdateUI();
 }
 

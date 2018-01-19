@@ -44,6 +44,8 @@ public:
 
 	int GetScoreValue() { return scoreValue; };
 
+	bool CheckCollision(Point3 otherPosition, float otherRadius);
+
 private:
 	float gravityConstant;
 	std::string name;
