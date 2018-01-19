@@ -11,17 +11,18 @@ SpaceShip::SpaceShip() : SpaceEntity(){
 	sprite()->size = Point(30, 30);
 	rotationSpeed = 3.14f;
 	velocity = Vector2(0, 0);
-	polar = Polar((rand() % 360) * DEG_TO_RAD, 0);
-	mass = 1000.0f;
+	polar = Polar((rand() % 360) * DEG_TO_RAD, 100);
+	mass = 10000.0f;
 	maxPassengers = 30;
 }
 
 SpaceShip::~SpaceShip(){
 	std::vector<Passenger*>::iterator passengersIt = passengers.begin();
 	while (passengersIt != passengers.end()) {
-		//delete (*passengersIt);
+		delete (*passengersIt);
 		passengersIt++;
 	}
+	passengers.clear();
 }
 
 void SpaceShip::update(float deltaTime){
