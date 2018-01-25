@@ -32,7 +32,7 @@ public:
 private:
 	/// @brief the spaceship controlled by the player.
 	SpaceShip* spaceship;
-	Body* currentOrbidShip;
+	Body* currentOrbitShip;
 	Body* lastResuppliedPlanet;
 	DirectionArrow* directionArrow;
 	std::vector<Body*> solarSystem;

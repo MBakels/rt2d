@@ -12,7 +12,7 @@
 GameScene::GameScene() : Scene(){
 	srand(time(NULL));
 
-	currentOrbidShip = NULL;
+	currentOrbitShip = NULL;
 	lastResuppliedPlanet = NULL;
 	helpersEnabled = true;
 	score = 0;
@@ -74,8 +74,8 @@ void GameScene::update(float deltaTime){
 		if (planet->GravitationalForce(spaceship).getLength() >= 10.0f && planet != sun) {
 			spaceship->AddForce(planet->GravitationalForce(spaceship) * deltaTime);
 			if (planet != lastResuppliedPlanet) {
-				bool stableOrbid = planet->CheckStableOrbid(spaceship->position, deltaTime);
-				if (stableOrbid) {
+				bool stableOrbit = planet->CheckStableOrbit(spaceship->position, deltaTime);
+				if (stableOrbit) {
 					lastResuppliedPlanet = planet;
 					Resupply();
 				}
@@ -98,28 +98,28 @@ void GameScene::update(float deltaTime){
 }
 
 void GameScene::SetupSolarSystem() {
-	sun = new Body("Sun", 1988500e24 / 1500000000000, 300, 0); // 1988500e24    1391400
+	sun = new Body("Sun", 1988500e24 / 1500000000000, 700, 0, "assets/Sun.tga"); // 1988500e24    1391400
 	this->addChild(sun);
 	solarSystem.push_back(sun);
 	
-	mercury = new Body("Mercury", 0.33011e24 / 100000000, 4879 / 50, 1); // 0.33011e24    4879
-	mercury->SetOrbid(sun->position, sun->GetMass(), 57.91e6 / 70000); // 57.91e6
-	mercury->SetStationOrbid(100);
+	mercury = new Body("Mercury", 0.33011e24 / 100000000, 4879 / 50, 1, "assets/planet.tga"); // 0.33011e24    4879
+	mercury->SetOrbit(sun->position, sun->GetMass(), 57.91e6 / 70000); // 57.91e6
+	mercury->SetStationOrbit(100);
 	solarSystem.push_back(mercury);
 
-	venus = new Body("Venus", 4.8675e24 / 100000000, 12104 / 50, 2); // 4.8675e24    12104
-	venus->SetOrbid(sun->position, sun->GetMass(), 108.21e6 / 70000); // 108.21e6
-	venus->SetStationOrbid(180);
+	venus = new Body("Venus", 4.8675e24 / 100000000, 12104 / 50, 2, "assets/planet.tga"); // 4.8675e24    12104
+	venus->SetOrbit(sun->position, sun->GetMass(), 108.21e6 / 70000); // 108.21e6
+	venus->SetStationOrbit(180);
 	solarSystem.push_back(venus);
 	
-	earth = new Body("Earth", 5.97237e24 / 100000000, 12756 / 50, 3); // 5.97237e24    12756
-	earth->SetOrbid(sun->position, sun->GetMass(), 149.60e6 / 70000); // 149.60e6
-	earth->SetStationOrbid(200);
+	earth = new Body("Earth", 5.97237e24 / 100000000, 12756 / 50, 3, "assets/planet.tga"); // 5.97237e24    12756
+	earth->SetOrbit(sun->position, sun->GetMass(), 149.60e6 / 70000); // 149.60e6
+	earth->SetStationOrbit(200);
 	solarSystem.push_back(earth);
 	
-	mars = new Body("Mars", 0.64171e24 / 100000000, 6792 / 50, 4); // 0.64171e24    6792
-	mars->SetOrbid(sun->position, sun->GetMass(), 227.92e6 / 70000); // 227.92e6
-	mars->SetStationOrbid(120);
+	mars = new Body("Mars", 0.64171e24 / 100000000, 6792 / 50, 4, "assets/planet.tga"); // 0.64171e24    6792
+	mars->SetOrbit(sun->position, sun->GetMass(), 227.92e6 / 70000); // 227.92e6
+	mars->SetStationOrbit(120);
 	solarSystem.push_back(mars);
 	
 	if (helpersEnabled) {

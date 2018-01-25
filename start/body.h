@@ -15,7 +15,7 @@
 class Body : public SpaceEntity {
 public:
 	/// @brief Constructor
-	Body(std::string name, float mass, float diameter, int scoreValue);
+	Body(std::string name, float mass, float diameter, int scoreValue, std::string filePath);
 	/// @brief Destructor
 	virtual ~Body();
 
@@ -28,15 +28,15 @@ public:
 
 	float GetDiameter();
 
-	void SetOrbid(Point3 orbitingPlanetPosition, float orbitingPlanetMass, float distance);
+	void SetOrbit(Point3 orbitingPlanetPosition, float orbitingPlanetMass, float distance);
 
 	std::string GetName() { return name; };
 
-	void SetStationOrbid(float height);
+	void SetStationOrbit(float height);
 
 	float GetDistance(Point3 otherPos);
 
-	bool CheckStableOrbid(Point3 shipPosition, float deltaTime);
+	bool CheckStableOrbit(Point3 shipPosition, float deltaTime);
 
 	float GetPassengersWaiting() { return passengersWaiting; };
 
@@ -51,9 +51,9 @@ private:
 	std::string name;
 	float diameter;
 	Body* orbitingPlanet;
-	BasicEntity* stationOrbid;
-	float stationOrbidHeight;
-	float stableOrbidTimer;
+	BasicEntity* stationOrbit;
+	float stationOrbitHeight;
+	float stableOrbitTimer;
 	int passengersWaiting;
 	int scoreValue;
 };

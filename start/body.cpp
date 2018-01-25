@@ -6,23 +6,23 @@
 
 #include "body.h"
 
-Body::Body(std::string name, float mass, float diameter, int scoreValue) : SpaceEntity() {
+Body::Body(std::string name, float mass, float diameter, int scoreValue, std::string filePath) : SpaceEntity() {
 	gravityConstant = 6.6742e-11;
 	this->name = name;
 	this->mass = mass;
 	this->diameter = diameter;
-	addSprite("assets/planet.tga");
+	addSprite(filePath);
 	sprite()->size = Point(diameter, diameter);
-	stationOrbid = NULL;
-	stationOrbidHeight = 0;
-	stableOrbidTimer = 5;
+	stationOrbit = NULL;
+	stationOrbitHeight = 0;
+	stableOrbitTimer = 5;
 	passengersWaiting = (rand() % 5) + 2;
 	this->scoreValue = scoreValue;
 }
 
 Body::~Body() {
-	removeChild(stationOrbid);
-	delete stationOrbid;
+	removeChild(stationOrbit);
+	delete stationOrbit;
 }
 
 void Body::update(float deltaTime) {
@@ -46,7 +46,7 @@ float Body::GetDiameter() {
 	return diameter;
 }
 
-void Body::SetOrbid(Point3 orbitingPlanetPosition, float orbitingPlanetMass, float distance) {
+void Body::SetOrbit(Point3 orbitingPlanetPosition, float orbitingPlanetMass, float distance) {
 	this->position = orbitingPlanetPosition;
 	this->position.x += distance;
 
@@ -56,14 +56,14 @@ void Body::SetOrbid(Point3 orbitingPlanetPosition, float orbitingPlanetMass, flo
 	SetVelocity(Vector2(0, vel));
 }
 
-void Body::SetStationOrbid(float height) {
-	stationOrbidHeight = height;
+void Body::SetStationOrbit(float height) {
+	stationOrbitHeight = height;
 	Line* circle = new Line();
 	circle->createCircle(height, 30);
-	stationOrbid = new BasicEntity();
-	stationOrbid->addLine(circle);
-	stationOrbid->line()->color = BLUE;
-	addChild(stationOrbid);
+	stationOrbit = new BasicEntity();
+	stationOrbit->addLine(circle);
+	stationOrbit->line()->color = BLUE;
+	addChild(stationOrbit);
 	delete circle;
 }
 
@@ -71,19 +71,19 @@ float Body::GetDistance(Point3 otherPos) {
 	return sqrt(pow((position.x - otherPos.x), 2) + pow((position.y - otherPos.y), 2));
 }
 
-bool Body::CheckStableOrbid(Point3 shipPosition, float deltaTime) {
-	float minHeight = stationOrbidHeight - 30;
-	float maxHeight = stationOrbidHeight + 30;
+bool Body::CheckStableOrbit(Point3 shipPosition, float deltaTime) {
+	float minHeight = stationOrbitHeight - 30;
+	float maxHeight = stationOrbitHeight + 30;
 	float distance = GetDistance(shipPosition);
 	if (distance >= minHeight && distance <= maxHeight) {
-		stableOrbidTimer -= 1 * deltaTime;
-		//std::cout << stableOrbidTimer << std::endl;
-		if (stableOrbidTimer <= 0) {
+		stableOrbitTimer -= 1 * deltaTime;
+		//std::cout << stableOrbitTimer << std::endl;
+		if (stableOrbitTimer <= 0) {
 			std::cout << "Resupplied" << std::endl;
 			return true;
 		}
 	} else {
-		stableOrbidTimer = 1;
+		stableOrbitTimer = 1;
 	}
 	return false;
 }
