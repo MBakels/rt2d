@@ -38,6 +38,8 @@ private:
 	std::vector<Body*> solarSystem;
 	std::vector<BasicEntity*> helpers;
 	bool helpersEnabled;
+	BasicEntity* background;
+	Sprite* backgroundSprite;
 	Body* sun;
 	Body* mercury;
 	Body* venus;

@@ -17,6 +17,11 @@ GameScene::GameScene() : Scene(){
 	helpersEnabled = true;
 	score = 0;
 
+	background = new BasicEntity();
+	background->addSprite("assets/star_background2.tga");
+	background->sprite()->size = Point2(1920,1920);
+	addChild(background);
+
 	spaceship = new SpaceShip();
 	spaceship->position = Point2(1350, 0);
 	spaceship->SetVelocity(Vector2(0, 370));
@@ -85,6 +90,8 @@ void GameScene::update(float deltaTime){
 	}
 	spaceship->AddForce(sun->GravitationalForce(spaceship) * deltaTime);
 
+	UpdateUI();
+
 	camera()->position.x = spaceship->position.x;
 	camera()->position.y = spaceship->position.y;
 
@@ -93,8 +100,6 @@ void GameScene::update(float deltaTime){
 			std::cout << "collision with: " << planet->GetName() << std::endl;
 		}
 	}
-
-	UpdateUI();
 }
 
 void GameScene::SetupSolarSystem() {
@@ -189,6 +194,10 @@ void GameScene::CreateUI() {
 
 void GameScene::UpdateUI() {
 	Point2 cam_pos = Point2(camera()->position.x, camera()->position.y);
+
+	background->position = cam_pos;
+	Point2 offset = Point2((spaceship->position.x * 0.0001f), (spaceship->position.y * 0.0001f) * -1);
+	background->sprite()->uvoffset = offset;
 
 	Point2 directionArrow_pos = Point2(cam_pos.x, cam_pos.y - 50 + SHEIGHT / 2);
 	directionArrow->position = directionArrow_pos;
