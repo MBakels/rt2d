@@ -37,8 +37,20 @@ GameScene::~GameScene(){
 	removeChild(spaceship);
 	delete spaceship;
 
+	removeChild(background);
+	delete background;
+
 	removeChild(directionArrow);
 	delete directionArrow;
+
+	removeChild(scoreText);
+	delete scoreText;
+
+	removeChild(passengersCounterText);
+	delete passengersCounterText;
+
+	removeChild(shipThrustPowerText);
+	delete shipThrustPowerText;
 	
 	std::vector<Body*>::iterator solarSystemIt = solarSystem.begin();
 	while (solarSystemIt != solarSystem.end()) {
@@ -174,7 +186,7 @@ void GameScene::Resupply() {
 
 void GameScene::CreateUI() {
 	directionArrow = new DirectionArrow(sun);
-	addChild(directionArrow);
+	this->addChild(directionArrow);
 
 	scoreText = new Text();
 	scoreText->scale = Point2(0.5f, 0.5f);
