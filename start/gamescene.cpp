@@ -9,22 +9,21 @@
 
 #include "gamescene.h"
 
-GameScene::GameScene() : Scene(){
+GameScene::GameScene() : SuperScene(){
 	srand(time(NULL));
 
-	currentOrbitShip = NULL;
 	lastResuppliedPlanet = NULL;
 	helpersEnabled = true;
 	score = 0;
 
 	background = new BasicEntity();
-	background->addSprite("assets/star_background2.tga");
+	background->addSprite("assets/star_background.tga");
 	background->sprite()->size = Point2(1920,1920);
 	addChild(background);
 
 	spaceship = new SpaceShip();
-	spaceship->position = Point2(1350, 0);
-	spaceship->SetVelocity(Vector2(0, 370));
+	spaceship->position = Point2(1360, 0);
+	spaceship->SetVelocity(Vector2(-22, 367));
 	addChild(spaceship);
 
 	SetupSolarSystem();
@@ -74,19 +73,12 @@ void GameScene::update(float deltaTime){
 	// Escape key pauses game
 	// ###############################################################
 	if (input()->getKeyUp(KeyCode::Escape)) {
-		this->stop();
-	}
-	// ###############################################################
-	// Debug key
-	// ###############################################################
-	if (input()->getKeyUp(KeyCode::I)) {
-		std::cout << spaceship->GetPassengerAmount() << std::endl;
+		status = 2;
 	}
 
 	for each(Body* planet in solarSystem) {
 		if (planet != sun) {
 			planet->AddForce((sun->GravitationalForce(planet) * deltaTime));
-			//std::cout << "Sun force on " << planet->GetName() << ":    " << sun->GravitationalForce(planet).getLength() << std::endl;
 		}
 		if (planet->GravitationalForce(spaceship).getLength() >= 10.0f && planet != sun) {
 			spaceship->AddForce(planet->GravitationalForce(spaceship) * deltaTime);
@@ -97,7 +89,9 @@ void GameScene::update(float deltaTime){
 					Resupply();
 				}
 			}
-			//std::cout << planet->GetName() << "    " << planet->GravitationalForce(spaceship).getLength() << std::endl;
+		}
+		if (planet->CheckCollision(spaceship->position, spaceship->GetRadius())) {
+			std::cout << "collision with: " << planet->GetName() << std::endl;
 		}
 	}
 	spaceship->AddForce(sun->GravitationalForce(spaceship) * deltaTime);
@@ -106,12 +100,6 @@ void GameScene::update(float deltaTime){
 
 	camera()->position.x = spaceship->position.x;
 	camera()->position.y = spaceship->position.y;
-
-	for each(Body* planet in solarSystem) {
-		if (planet->CheckCollision(spaceship->position, spaceship->GetRadius())) {
-			std::cout << "collision with: " << planet->GetName() << std::endl;
-		}
-	}
 }
 
 void GameScene::SetupSolarSystem() {

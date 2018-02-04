@@ -22,7 +22,7 @@
 #define SWIDTH 1920 ///< The screen width
 #define SHEIGHT 1080 ///< The screen height
 
-#define FULLSCREEN 1 ///< Fullscreen or not
+#define FULLSCREEN 0 ///< Fullscreen or not
 
 #define WINDOWNAME "RT2D" ///< The window name
 
@@ -35,7 +35,7 @@
 #define SPRITEFRAGMENTSHADER "shaders/sprite.frag" ///< fragmentshader name
 #define AUTOGENWHITE "#autogen-white-TGA#" ///< auto generated Texture
 
-#define VSYNC 1 ///< VSYNC on (1) or off (0)
+#define VSYNC 0 ///< VSYNC on (1) or off (0)
 
 #define DEFAULTFILTER 3 ///< texture filter
 #define DEFAULTWRAP 1 ///< texture clamping (0=repeat, 1=mirror, 2=clamp)

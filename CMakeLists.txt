@@ -170,6 +170,14 @@ IF(MAKE_START)
 		start/basicentity.h
 		start/passenger.cpp
 		start/passenger.h
+		start/pausescene.cpp
+		start/pausescene.h
+		start/menuscene.cpp
+		start/menuscene.h
+		start/gameoverscene.cpp
+		start/gameoverscene.h
+		start/superscene.cpp
+		start/superscene.h
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}

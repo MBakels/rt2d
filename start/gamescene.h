@@ -9,15 +9,16 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
-#include <rt2d/scene.h>
+//#include <rt2d/scene.h>
 #include <rt2d/text.h>
 
+#include "superscene.h"
 #include "spaceship.h"
 #include "body.h"
 #include "directionarrow.h"
 
 /// @brief The MyScene class is the Scene implementation.
-class GameScene : public Scene{
+class GameScene : public SuperScene {
 public:
 	/// @brief Constructor
 	GameScene();
@@ -32,23 +33,21 @@ public:
 private:
 	/// @brief the spaceship controlled by the player.
 	SpaceShip* spaceship;
-	Body* currentOrbitShip;
 	Body* lastResuppliedPlanet;
 	DirectionArrow* directionArrow;
 	std::vector<Body*> solarSystem;
 	std::vector<BasicEntity*> helpers;
 	bool helpersEnabled;
 	BasicEntity* background;
-	Sprite* backgroundSprite;
 	Body* sun;
 	Body* mercury;
 	Body* venus;
 	Body* earth;
 	Body* mars;
-	Body* jupiter;
-	Body* saturn;
-	Body* uranus;
-	Body* neptune;
+	//Body* jupiter;
+	//Body* saturn;
+	//Body* uranus;
+	//Body* neptune;
 	Text* scoreText;
 	int score;
 	Text* passengersCounterText;
