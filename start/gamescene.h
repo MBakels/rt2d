@@ -9,7 +9,6 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
-//#include <rt2d/scene.h>
 #include <rt2d/text.h>
 
 #include "superscene.h"
@@ -29,6 +28,8 @@ public:
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
 	virtual void update(float deltaTime);
+
+	int GetScore() { return score; }
 
 private:
 	/// @brief the spaceship controlled by the player.

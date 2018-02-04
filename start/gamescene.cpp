@@ -73,7 +73,7 @@ void GameScene::update(float deltaTime){
 	// Escape key pauses game
 	// ###############################################################
 	if (input()->getKeyUp(KeyCode::Escape)) {
-		status = 2;
+		status = 1;
 	}
 
 	for each(Body* planet in solarSystem) {
@@ -91,7 +91,8 @@ void GameScene::update(float deltaTime){
 			}
 		}
 		if (planet->CheckCollision(spaceship->position, spaceship->GetRadius())) {
-			std::cout << "collision with: " << planet->GetName() << std::endl;
+			//std::cout << "collision with: " << planet->GetName() << std::endl;
+			status = 3;
 		}
 	}
 	spaceship->AddForce(sun->GravitationalForce(spaceship) * deltaTime);

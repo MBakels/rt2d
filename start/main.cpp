@@ -30,8 +30,8 @@ int main(void){
 	Core core;
 
 	scenes.push_back(new MenuScene()); // Scene0
-	scenes.push_back(new GameScene()); // Scene1
-	scenes.push_back(new PauseScene()); // Scene2
+	scenes.push_back(new PauseScene()); // Scene1
+	scenes.push_back(NULL); // Scene2
 	scenes.push_back(new GameOverScene()); // Scene3
 
 	scene = scenes[0];
@@ -40,10 +40,19 @@ int main(void){
 	while(running) {
 		core.run(scene);
 		int status = scene->GetStatus();
-		if (status < 4) {
+		if (status < 3) {
 			scene->ResetStatus();
 			scene = scenes[status];
-		} else if (status == 4) {
+		}else if(status == 3){
+			int score = ((GameScene*)scenes[2])->GetScore();
+			scene = scenes[3];
+			((GameOverScene*)scene)->SetScore(score);
+		}else if (status == 4) {
+			scene->ResetStatus();
+			delete scenes[2];
+			scenes[2] = new GameScene();
+			scene = scenes[2];
+		} else if (status == 5) {
 			running = 0;
 		}
 	}

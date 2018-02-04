@@ -7,7 +7,7 @@
 #include "superscene.h"
 
 SuperScene::SuperScene() : Scene() {
-	status = 5;
+	status = 6;
 }
 
 SuperScene::~SuperScene() {

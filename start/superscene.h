@@ -26,7 +26,7 @@ public:
 
 	int GetStatus();
 
-	void ResetStatus() { status = 5; }
+	void ResetStatus() { status = 6; }
 
 protected:
 	int status;

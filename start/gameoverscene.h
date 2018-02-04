@@ -9,9 +9,10 @@
 #ifndef GAMEOVERSCENE_H
 #define GAMEOVERSCENE_H
 
-//#include <rt2d/scene.h>
+#include <rt2d/text.h>
 
 #include "superscene.h"
+#include "basicentity.h"
 
 /// @brief The SpaceShip class handels the spaceship movement and keeps a list of passengers.
 class GameOverScene : public SuperScene {
@@ -25,6 +26,15 @@ public:
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
 	virtual void update(float deltaTime);
+
+	void SetScore(int score);
+
+private:
+	BasicEntity* background;
+	BasicEntity* toMenuButton;
+	Text* toMenuButtonText;
+	Text* gameOverText;
+	Text* scoreText;
 };
 
 #endif /* GAMEOVERSCENE_H */
